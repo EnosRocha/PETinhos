@@ -1,13 +1,23 @@
 <script lang="ts" setup>
-defineProps<{
+import { useRouter } from 'vue-router'
+const router = useRouter()
+
+
+const props = defineProps<{
+    registro?: number
     image?: string
     title?: string
     description?: string
 }>()
+
+
+
+console.log("printando id do pet no card -> ", props.registro)
+
 </script>
 
 <template>
-    <div class="cardDiv">
+    <div class="cardDiv" @click="router.push(`/viewPet/${props.registro}`)">
         <div class="cardImage">
             <img :src="image" :alt="title" />
         </div>

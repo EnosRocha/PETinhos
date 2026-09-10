@@ -25,13 +25,8 @@ onMounted(async () => {
             </div>
 
             <div class="grid">
-                <Card
-                    v-for="pet in animalStore.pets"
-                    :key="pet.id"
-                    :image="pet.image"
-                    :title="pet.name"
-                    :description="pet.descricao"
-                />
+                <Card v-for="pet in animalStore.pets" :key="pet.id" :registro="pet.registro" :image="pet.image" :title="pet.name"
+                    :description="pet.descricao" />
             </div>
         </div>
 
@@ -66,8 +61,13 @@ onMounted(async () => {
 }
 
 @keyframes bounce {
-    from { transform: translateY(0);   }
-    to   { transform: translateY(-12px); }
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-12px);
+    }
 }
 
 
