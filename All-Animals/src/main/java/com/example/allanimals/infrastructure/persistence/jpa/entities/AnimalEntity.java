@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,6 +24,10 @@ public class AnimalEntity {
 
     @Column(name = "animal_name")
     private String name;
+
+    @OneToMany(mappedBy = "animal", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OrderBy("ordem ASC")
+    private List<AnimalImagemEntity> imagens = new ArrayList<>();
 
     @Column(name = "tipo_de_animal")
     @Enumerated(EnumType.STRING)
@@ -50,4 +57,5 @@ public class AnimalEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tutor_id", nullable = true)
     private TutorEntity tutor;
+
 }

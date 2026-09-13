@@ -4,7 +4,9 @@ import com.example.allanimals.application.dto.AnimalRequestDto;
 import com.example.allanimals.application.dto.AnimalResponseDto;
 import com.example.allanimals.application.mappers.AnimalMappersApp;
 import com.example.allanimals.domain.model.entities.Animal;
+import com.example.allanimals.infrastructure.persistence.jpa.entities.AnimalEntity;
 import com.example.allanimals.infrastructure.persistence.jpa.impl.AnimalRepositoryImpl;
+import com.example.allanimals.infrastructure.persistence.jpa.mappers.AnimalMapperInfra;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,5 +43,10 @@ public class AnimalAppService {
        Animal animal = animalRepository.getAnimal(id);
        AnimalResponseDto animalDto = AnimalMappersApp.toResponse(animal);
        return animalDto;
+    }
+    public AnimalEntity getAnimalForImage(Long id){
+       Animal animal = animalRepository.getAnimal(id);
+       AnimalEntity animalEntity = AnimalMapperInfra.toEntity(animal);
+       return animalEntity;
     }
 }

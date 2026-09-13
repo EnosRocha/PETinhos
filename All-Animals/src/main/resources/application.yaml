@@ -1,6 +1,12 @@
 spring:
   application:
     name: All-animals
+    datasource:
+      url: ${DB_URL}
+      username: ${DB_USERNAME}
+      password: ${DB_PASSWORD}
+      driver-class-name: com.mysql.cj.jdbc.Driverapplication
+      name: All-animals
   datasource:
     url: jdbc:mysql://localhost:3306/all_animals?createDatabaseIfNotExist=true
     username: root
@@ -14,3 +20,8 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
+
+cloudinary:
+  cloud-name: ${CLOUDINARY_CLOUD_NAME}
+  api-key: ${CLOUDINARY_API_KEY}
+  api-secret: ${CLOUDINARY_API_SECRET}

@@ -3,6 +3,7 @@ package com.example.allanimals.application.mappers;
 import com.example.allanimals.application.dto.AnimalRequestDto;
 import com.example.allanimals.application.dto.AnimalResponseDto;
 import com.example.allanimals.domain.model.entities.Animal;
+import com.example.allanimals.infrastructure.persistence.jpa.entities.AnimalEntity;
 
 public class AnimalMappersApp {
 
@@ -12,6 +13,7 @@ public class AnimalMappersApp {
         Animal animal = new Animal();
 
         animal.setName(dto.name());
+        animal.setImage(dto.image());
         animal.setTipoAnimal(dto.tipoAnimal());
         animal.setRaca(dto.raca());
         animal.setPeso(dto.peso());
@@ -31,6 +33,7 @@ public class AnimalMappersApp {
         return new AnimalResponseDto(
                 animal.getRegistro() != null ? animal.getRegistro().getRegistro() : null,
                 animal.getName(),
+                animal.getImage(),
                 animal.getTipoAnimal(),
                 animal.getRaca(),
                 animal.getPeso(),

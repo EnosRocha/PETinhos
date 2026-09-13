@@ -7,6 +7,7 @@ import java.util.UUID;
 
 public class Animal {
     private String name;
+    private String image;
     private TipoAnimal tipoAnimal;
     private String raca;
     private Double peso;
@@ -14,6 +15,15 @@ public class Animal {
     private Integer idade;
     private RegistroAnimal registro;
     private Integer donoId;
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     private String descricao;
     private String endereco;
     private UUID tutorId;
