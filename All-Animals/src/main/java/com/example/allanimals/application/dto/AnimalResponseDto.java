@@ -5,6 +5,7 @@ import com.example.allanimals.domain.model.enums.TipoAnimal;
 public record AnimalResponseDto(
         Long registro,
         String name,
+        String image,
         TipoAnimal tipoAnimal,
         String raca,
         Double peso,

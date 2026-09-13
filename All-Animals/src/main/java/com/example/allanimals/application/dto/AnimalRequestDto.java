@@ -8,6 +8,9 @@ public record AnimalRequestDto(
                     @Size(max = 150, message = "Nome muito longo")
                     String name,
 
+                    @NotBlank(message = "A imagem não pode estar faltando")
+                    String image,
+
                     @NotNull(message = "O tipo do animal é obrigatório")
                     TipoAnimal tipoAnimal,
 
