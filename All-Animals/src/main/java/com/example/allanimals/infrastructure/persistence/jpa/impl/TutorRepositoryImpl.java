@@ -1,6 +1,7 @@
 package com.example.allanimals.infrastructure.persistence.jpa.impl;
 
 import com.example.allanimals.domain.model.entities.Tutor;
+import com.example.allanimals.domain.model.objectValue.Email;
 import com.example.allanimals.domain.repositories.TutorRepository;
 import com.example.allanimals.infrastructure.persistence.jpa.entities.TutorEntity;
 import com.example.allanimals.infrastructure.persistence.jpa.mappers.TutorMapperInfra;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 @Repository
@@ -60,5 +63,12 @@ public class TutorRepositoryImpl implements TutorRepository {
         return tutorRepository.findById(id)
                 .map(TutorMapperInfra::toDomain)
                 .orElseThrow(() -> new RuntimeException("Tutor não encontrado"));
+    }
+
+    @Override
+    public Tutor findByEmail(Email email) {
+        TutorEntity tutor = tutorRepository.findByEmail(email);
+        Tutor tutorDomain = TutorMapperInfra.toDomain(tutor);
+        return tutorDomain;
     }
 }

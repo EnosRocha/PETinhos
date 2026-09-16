@@ -9,37 +9,39 @@ import java.util.UUID;
 public class Tutor {
 
     private UUID tutorId;
-
-    public UUID getTutorId() {
-        return tutorId;
-    }
-
-    public void setTutorId(UUID tutorId) {
-        this.tutorId = tutorId;
-    }
-
     private String name;
     private String password;
     private Telefone phone;
     private Date birthday;
     private Email email;
+    private AuthProvider provider;
 
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
+    public enum AuthProvider {
+        LOCAL, GOOGLE
     }
 
-    @Override
-    public int hashCode() {
-        return super.hashCode();
+    public AuthProvider getProvider() {
+        return provider;
     }
 
-    public String getName() {
-        return name;
+    public void setProvider(AuthProvider provider) {
+        this.provider = provider;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public Email getEmail() {
+        return email;
+    }
+
+    public void setEmail(Email email) {
+        this.email = email;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 
     public Telefone getPhone() {
@@ -58,26 +60,29 @@ public class Tutor {
         this.password = password;
     }
 
-    public Date getBirthday() {
-        return birthday;
+    public String getName() {
+        return name;
     }
 
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Email getEmail() {
-        return email;
+    public UUID getTutorId() {
+        return tutorId;
     }
 
-    public void setEmail(Email email) {
-        this.email = email;
+    public void setTutorId(UUID tutorId) {
+        this.tutorId = tutorId;
     }
 
-    public Tutor() {
+    public Tutor(UUID tutorId, String name, String password, Telefone phone, Date birthday, Email email, AuthProvider provider) {
+        this.tutorId = tutorId;
         this.name = name;
         this.password = password;
+        this.phone = phone;
         this.birthday = birthday;
         this.email = email;
+        this.provider = provider;
     }
 }

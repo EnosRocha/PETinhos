@@ -1,15 +1,19 @@
 package com.example.allanimals.application.dto;
 
+import com.example.allanimals.domain.model.entities.AnimalImage;
 import com.example.allanimals.domain.model.enums.TipoAnimal;
+import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.*;
+
+import java.util.List;
 
 public record AnimalRequestDto(
                     @NotBlank(message = "O nome não pode estar em branco")
                     @Size(max = 150, message = "Nome muito longo")
                     String name,
 
-                    @NotBlank(message = "A imagem não pode estar faltando")
-                    String image,
+                    @Nullable
+                    List<AnimalImage> image,
 
                     @NotNull(message = "O tipo do animal é obrigatório")
                     TipoAnimal tipoAnimal,
