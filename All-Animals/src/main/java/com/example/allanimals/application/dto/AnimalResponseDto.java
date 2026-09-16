@@ -1,11 +1,14 @@
 package com.example.allanimals.application.dto;
 
+import com.example.allanimals.domain.model.entities.AnimalImage;
 import com.example.allanimals.domain.model.enums.TipoAnimal;
+
+import java.util.List;
 
 public record AnimalResponseDto(
         Long registro,
         String name,
-        String image,
+        List<AnimalImage> image,
         TipoAnimal tipoAnimal,
         String raca,
         Double peso,

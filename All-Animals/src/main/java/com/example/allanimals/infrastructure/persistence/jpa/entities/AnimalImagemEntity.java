@@ -9,8 +9,6 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "animal_imagens")
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class AnimalImagemEntity {
@@ -30,4 +28,36 @@ public class AnimalImagemEntity {
     @Column(name = "ordem")
     private Integer ordem;
 
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public AnimalEntity getAnimal() {
+        return animal;
+    }
+
+    public void setAnimal(AnimalEntity animal) {
+        this.animal = animal;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public Integer getOrdem() {
+        return ordem;
+    }
+
+    public void setOrdem(Integer ordem) {
+        this.ordem = ordem;
+    }
 }

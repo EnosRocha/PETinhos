@@ -1,8 +1,14 @@
 package com.example.allanimals.infrastructure.persistence.jpa.mappers;
 
 import com.example.allanimals.domain.model.entities.Animal;
+import com.example.allanimals.domain.model.entities.AnimalImage;
 import com.example.allanimals.domain.model.objectValue.RegistroAnimal;
 import com.example.allanimals.infrastructure.persistence.jpa.entities.AnimalEntity;
+import com.example.allanimals.infrastructure.persistence.jpa.entities.AnimalImagemEntity;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class AnimalMapperInfra {
 
@@ -11,7 +17,13 @@ public class AnimalMapperInfra {
 
         AnimalEntity animalEntity = new AnimalEntity();
         animalEntity.setName(animal.getName());
-        animalEntity.setImage(animal.getImage());
+        animalEntity.setImagens(animal.getImage().stream().map(img -> {
+            AnimalImagemEntity entity = new AnimalImagemEntity();
+            entity.setId(img.getId());
+            entity.setUrl(img.getUrl());
+            entity.setOrdem(img.getOrdem());
+            return entity;
+        }).collect(Collectors.toList()));
         animalEntity.setTipoAnimal(animal.getTipoAnimal());
         animalEntity.setCor(animal.getCor());
         animalEntity.setPeso(animal.getPeso());
@@ -35,7 +47,12 @@ public class AnimalMapperInfra {
         animal.setDescricao(dto.getDescricao());
         animal.setPeso(dto.getPeso());
         animal.setName(dto.getName());
-        animal.setImage(dto.getImage());
+        animal.setImage(
+                dto.getImagens().stream()
+                        .map(img -> new AnimalImage(img.getId(), img.getUrl(), img.getOrdem()))
+                        .collect(Collectors.toList())
+        );
+        ;
         animal.setTipoAnimal(dto.getTipoAnimal());
         animal.setIdade(dto.getIdade());
         animal.setRegistro(new RegistroAnimal(dto.getRegistro()));

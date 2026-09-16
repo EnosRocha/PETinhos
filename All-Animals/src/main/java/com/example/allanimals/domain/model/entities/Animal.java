@@ -3,11 +3,12 @@ package com.example.allanimals.domain.model.entities;
 import com.example.allanimals.domain.model.enums.TipoAnimal;
 import com.example.allanimals.domain.model.objectValue.RegistroAnimal;
 
+import java.util.List;
 import java.util.UUID;
 
 public class Animal {
     private String name;
-    private String image;
+    private List<AnimalImage> image;
     private TipoAnimal tipoAnimal;
     private String raca;
     private Double peso;
@@ -16,11 +17,11 @@ public class Animal {
     private RegistroAnimal registro;
     private Integer donoId;
 
-    public String getImage() {
+    public List<AnimalImage> getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(List<AnimalImage> image) {
         this.image = image;
     }
 

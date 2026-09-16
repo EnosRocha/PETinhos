@@ -75,6 +75,9 @@ console.log("printando o valor do pet id dentro do viewPet - >", pet.value?.regi
             <img src="../assets/images/viewPetBackGround.jpeg" alt="background">
         </div>
 
+        <!-- <input type="file" multiple @change="handleFiles" accept="image/*" /> -->
+
+
     </div>
 </template>
 

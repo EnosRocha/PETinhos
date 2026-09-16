@@ -13,8 +13,6 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
 @Table(name = "Animal_tb")
 public class AnimalEntity {
 
@@ -58,4 +56,101 @@ public class AnimalEntity {
     @JoinColumn(name = "tutor_id", nullable = true)
     private TutorEntity tutor;
 
+
+    public Long getRegistro() {
+
+        return registro;
+    }
+
+    public void setRegistro(Long registro) {
+        this.registro = registro;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<AnimalImagemEntity> getImagens() {
+        return imagens;
+    }
+
+    public void setImagens(List<AnimalImagemEntity> imagens) {
+        this.imagens = imagens;
+    }
+
+    public TipoAnimal getTipoAnimal() {
+        return tipoAnimal;
+    }
+
+    public void setTipoAnimal(TipoAnimal tipoAnimal) {
+        this.tipoAnimal = tipoAnimal;
+    }
+
+    public String getRaca() {
+        return raca;
+    }
+
+    public void setRaca(String raca) {
+        this.raca = raca;
+    }
+
+    public Double getPeso() {
+        return peso;
+    }
+
+    public void setPeso(Double peso) {
+        this.peso = peso;
+    }
+
+    public String getCor() {
+        return cor;
+    }
+
+    public void setCor(String cor) {
+        this.cor = cor;
+    }
+
+    public Integer getIdade() {
+        return idade;
+    }
+
+    public void setIdade(Integer idade) {
+        this.idade = idade;
+    }
+
+    public Integer getDonoId() {
+        return donoId;
+    }
+
+    public void setDonoId(Integer donoId) {
+        this.donoId = donoId;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public TutorEntity getTutor() {
+        return tutor;
+    }
+
+    public void setTutor(TutorEntity tutor) {
+        this.tutor = tutor;
+    }
 }
