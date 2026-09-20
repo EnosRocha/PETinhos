@@ -2,6 +2,7 @@ package com.example.allanimals.infrastructure.config;
 
 
 import com.example.allanimals.infrastructure.security.JwtFilter;
+import com.example.allanimals.infrastructure.security.OAuth2SuccessHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,7 +34,10 @@ public class SecurityConfig {
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/oauth2/**").permitAll()
                         .anyRequest().authenticated()
-                )
+                ).exceptionHandling(ex -> ex
+                .authenticationEntryPoint((request, response, authException) ->
+                        response.sendError(401, "Não autorizado"))
+        )
                 .oauth2Login(oauth2 -> oauth2
                         .successHandler(oAuth2SuccessHandler)
                 )

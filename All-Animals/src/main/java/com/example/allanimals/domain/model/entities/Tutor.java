@@ -3,7 +3,7 @@ package com.example.allanimals.domain.model.entities;
 import com.example.allanimals.domain.model.objectValue.Email;
 import com.example.allanimals.domain.model.objectValue.Telefone;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.UUID;
 
 public class Tutor {
@@ -12,7 +12,7 @@ public class Tutor {
     private String name;
     private String password;
     private Telefone phone;
-    private Date birthday;
+    private LocalDate birthday;
     private Email email;
     private AuthProvider provider;
 
@@ -36,11 +36,11 @@ public class Tutor {
         this.email = email;
     }
 
-    public Date getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
 
@@ -76,7 +76,7 @@ public class Tutor {
         this.tutorId = tutorId;
     }
 
-    public Tutor(UUID tutorId, String name, String password, Telefone phone, Date birthday, Email email, AuthProvider provider) {
+    public Tutor(UUID tutorId, String name, String password, Telefone phone, LocalDate birthday, Email email, AuthProvider provider) {
         this.tutorId = tutorId;
         this.name = name;
         this.password = password;
@@ -84,5 +84,9 @@ public class Tutor {
         this.birthday = birthday;
         this.email = email;
         this.provider = provider;
+    }
+
+    public Tutor() {
+
     }
 }

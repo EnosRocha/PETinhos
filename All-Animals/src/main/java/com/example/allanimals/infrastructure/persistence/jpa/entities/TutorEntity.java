@@ -11,7 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
@@ -30,16 +30,15 @@ public class TutorEntity {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String password;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = true, unique = true)
     @Convert(converter = TelefoneConverter.class)
     private Telefone phone;
 
-    @Column(nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date birthday;
+    @Column(nullable = true)
+    private LocalDate birthday;
 
     @Column(nullable = false, unique = true)
     @Convert(converter = EmailConverter.class)
@@ -94,11 +93,11 @@ public class TutorEntity {
         this.phone = phone;
     }
 
-    public Date getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
 

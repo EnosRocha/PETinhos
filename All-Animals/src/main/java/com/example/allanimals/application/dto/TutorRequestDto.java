@@ -1,11 +1,13 @@
 package com.example.allanimals.application.dto;
 
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 
-import java.util.Date;
+import java.time.LocalDate;
+
 
 public record TutorRequestDto(
         @NotBlank(message = "O nome não pode estar em branco")
@@ -21,7 +23,7 @@ public record TutorRequestDto(
 
         @NotNull(message = "A data de nascimento é obrigatória")
         @Past(message = "A data de nascimento deve ser no passado")
-        Date birthday,
+        LocalDate birthday,
 
         @NotBlank(message = "O email é obrigatório")
         @jakarta.validation.constraints.Email(message = "Email inválido")

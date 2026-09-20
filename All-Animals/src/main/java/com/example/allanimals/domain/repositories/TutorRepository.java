@@ -4,7 +4,6 @@ import com.example.allanimals.domain.model.entities.Animal;
 import com.example.allanimals.domain.model.entities.Tutor;
 import com.example.allanimals.domain.model.objectValue.Email;
 
-import java.lang.ScopedValue;
 import java.util.List;
 import java.util.UUID;
 

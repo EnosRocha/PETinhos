@@ -36,9 +36,7 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
         Tutor tutor = tutorRepository.findByEmail(new Email(email));
 
-        boolean isPresent = tutor.getTutorId() != null ? true : false;
-
-        if (!isPresent) {
+        if (tutor == null) {
             TutorEntity novo = new TutorEntity();
             novo.setName(name);
             novo.setEmail(new Email(email));
@@ -46,10 +44,9 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
             Tutor tutorDomain = TutorMapperInfra.toDomain(novo);
             tutorRepository.save(tutorDomain);
-        };
+        }
 
         String token = jwtService.gerarToken(email);
-
         response.sendRedirect("http://localhost:5173/oauth2/callback?token=" + token);
     }
 }

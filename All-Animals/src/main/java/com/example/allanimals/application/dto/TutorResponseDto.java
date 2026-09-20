@@ -1,6 +1,6 @@
 package com.example.allanimals.application.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.UUID;
 
 public record TutorResponseDto(
@@ -11,7 +11,7 @@ public record TutorResponseDto(
 
         String phone,
 
-        Date birthday,
+        LocalDate birthday,
 
         String email
 ) {

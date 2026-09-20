@@ -7,6 +7,10 @@ const password = ref('')
 function onSubmit() {
     // console.log('login', { email: email.value, password: password.value })
 }
+
+function loginGoogle() {
+    window.location.href = 'http://localhost:8080/oauth2/authorization/google'
+}
 </script>
 
 <template>
@@ -21,29 +25,19 @@ function onSubmit() {
 
             <div class="input-group">
                 <label for="email">Email</label>
-                <input
-                    id="email"
-                    v-model="email"
-                    type="email"
-                    name="email"
-                    placeholder="voce@email.com"
-                    autocomplete="email"
-                    required
-                />
+                <input id="email" v-model="email" type="email" name="email" placeholder="voce@email.com"
+                    autocomplete="email" required />
             </div>
 
             <div class="input-group">
                 <label for="password">Senha</label>
-                <input
-                    id="password"
-                    v-model="password"
-                    type="password"
-                    name="password"
-                    placeholder="••••••••"
-                    autocomplete="current-password"
-                    required
-                />
+                <input id="password" v-model="password" type="password" name="password" placeholder="••••••••"
+                    autocomplete="current-password" required />
             </div>
+
+
+            <button class="btnGoogle" @click="loginGoogle">Entrar com Google</button>
+
 
             <a class="forgot" href="#">Esqueceu a senha?</a>
 
@@ -210,5 +204,29 @@ function onSubmit() {
     .heading h1 {
         font-size: 1.6rem;
     }
+}
+
+
+.btnGoogle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 13px 24px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    background: #fff;
+    border: 2px solid #ece9e7;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+
+.btnGoogle:hover {
+    border-color: #d0ccc9;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
 }
 </style>
