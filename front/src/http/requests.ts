@@ -11,6 +11,26 @@ export async function buscarPetsDisponiveis() {
     }
 }
 
+export interface AnimalForm {
+    name: string;
+    tipoAnimal: string;
+    raca: string;
+    peso: number | null;
+    cor: string;
+    idade: number | null;
+    donoId: number;
+    descricao: string;
+    endereco: string;
+}
+
+export async function cadastrarPet(animal: AnimalForm, files: File[]) {
+    const data = new FormData();
+    data.append('animal', new Blob([JSON.stringify(animal)], { type: 'application/json' }));
+    files.forEach(f => data.append('images', f));
+
+    const response = await api.post('/animals', data);
+    return response.data;
+}
 
 export async function handleFiles(event: Event) {
     // const input = event.target as HTMLInputElement
