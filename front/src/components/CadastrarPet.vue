@@ -128,3 +128,152 @@ async function enviar() {
         </form>
     </div>
 </template>
+
+<style scoped>
+#main {
+    position: absolute;
+    inset: 0;
+    overflow-y: auto;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 30px 16px;
+    box-sizing: border-box;
+    background: linear-gradient(135deg, #fff4ec, #ffd9c2);
+}
+
+.card {
+    width: 100%;
+    max-width: 560px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 28px;
+    box-sizing: border-box;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+h2 {
+    margin: 0;
+    color: orangered;
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #5a3a28;
+}
+
+input,
+select,
+textarea {
+    padding: 10px 12px;
+    font: inherit;
+    font-weight: 400;
+    border: 1px solid #ffd2b3;
+    border-radius: 10px;
+    background: #fff9f5;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: orangered;
+    box-shadow: 0 0 0 3px rgba(255, 69, 0, 0.15);
+}
+
+.row {
+    display: flex;
+    gap: 12px;
+}
+
+.previews {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.thumb {
+    position: relative;
+    width: 84px;
+    height: 84px;
+}
+
+.thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid #ffd2b3;
+}
+
+.thumb button {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: orangered;
+    color: #fff;
+    cursor: pointer;
+}
+
+.erro {
+    margin: 0;
+    padding: 10px 12px;
+    color: #a12600;
+    background: #ffe3d8;
+    border-radius: 10px;
+}
+
+.actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+.actions button {
+    padding: 12px 24px;
+    font-weight: 600;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.actions button:hover:not(:disabled) {
+    transform: translateY(-2px);
+}
+
+.enviar {
+    color: #fff;
+    background: orangered;
+}
+
+.enviar:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.voltar {
+    color: #5a3a28;
+    background: #fff1e6;
+}
+
+@media (max-width: 480px) {
+    .row {
+        flex-direction: column;
+    }
+}
+</style>
