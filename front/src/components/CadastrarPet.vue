@@ -131,15 +131,16 @@ async function enviar() {
 
 <style scoped>
 #main {
-    position: absolute;
-    inset: 0;
-    overflow-y: auto;
+    width: 100%;
+    min-height: 100vh;
+    padding: 24px;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
-    padding: 30px 16px;
-    box-sizing: border-box;
-    background: linear-gradient(135deg, #fff4ec, #ffd9c2);
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 55%),
+        linear-gradient(135deg, #ff7043 0%, #ffa05a 45%, #ffcc70 100%);
 }
 
 .card {

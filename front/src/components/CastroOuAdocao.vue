@@ -8,10 +8,10 @@ const router = useRouter()
     <div id="main">
         <div id="buttonsOpetions">
             <div class="buttons">
-                <button id="cadastrarPet" @click="router.push('/CadastrarPet')">
+                <button id="cadastrarPet" @click="router.push('/cadastrar')">
                     🐾 Cadastrar Pet
                 </button>
-                <button id="adotarPet" @click="router.push('/AdotarPet')">
+                <button id="adotarPet" @click="router.push('/adotar')">
                     ❤️ Adotar Pet
                 </button>
             </div>
@@ -35,13 +35,16 @@ const router = useRouter()
 
 <style scoped>
 #main {
-    position: absolute;
-    inset: 0;
+    width: 100%;
+    min-height: 100vh;
+    padding: 24px;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
-    background: linear-gradient(135deg, #fff4ec, #ffd9c2);
+    font-family: 'Poppins', sans-serif;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 55%),
+        linear-gradient(135deg, #ff7043 0%, #ffa05a 45%, #ffcc70 100%);
 }
 
 #buttonsOpetions {
@@ -106,7 +109,7 @@ const router = useRouter()
     text-align: center;
     color: #5a3a28;
     line-height: 1.6;
-    background-color: #fff1e6;          
+    background-color: #fff1e6;
     border: 1px solid #ffd2b3;
     border-radius: 14px;
 }
@@ -138,10 +141,12 @@ const router = useRouter()
         width: 90%;
         padding: 20px;
     }
+
     .buttons {
         flex-direction: column;
         width: 100%;
     }
+
     #buttonsOpetions button {
         width: 100%;
     }
