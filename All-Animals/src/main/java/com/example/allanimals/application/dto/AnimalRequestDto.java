@@ -12,7 +12,7 @@ public record AnimalRequestDto(
                     @Size(max = 150, message = "Nome muito longo")
                     String name,
 
-                    @Nullable
+
                     List<AnimalImage> image,
 
                     @NotNull(message = "O tipo do animal é obrigatório")

@@ -108,7 +108,6 @@ const router = useRouter()
     line-height: 1.6;
     background-color: #fff1e6;          
     border: 1px solid #ffd2b3;
-    border-left: 5px solid orangered;   
     border-radius: 14px;
 }
 
