@@ -15,7 +15,11 @@ public class TutorMapperInfra {
         entity.setPhone(tutor.getPhone());
         entity.setBirthday(tutor.getBirthday());
         entity.setEmail(tutor.getEmail());
-        entity.setProvider(TutorEntity.AuthProvider.valueOf(tutor.getProvider().name()));
+        entity.setProvider(
+                tutor.getProvider() != null
+                        ? TutorEntity.AuthProvider.valueOf(tutor.getProvider().name())
+                        : TutorEntity.AuthProvider.LOCAL
+        );
 
 
         return entity;
@@ -31,7 +35,11 @@ public class TutorMapperInfra {
         tutor.setPhone(entity.getPhone());
         tutor.setBirthday(entity.getBirthday());
         tutor.setEmail(entity.getEmail());
-        tutor.setProvider(Tutor.AuthProvider.valueOf(entity.getProvider().name()));
+        tutor.setProvider(
+                entity.getProvider() != null
+                        ? Tutor.AuthProvider.valueOf(entity.getProvider().name())
+                        : Tutor.AuthProvider.LOCAL
+        );
 
         return tutor;
     }
