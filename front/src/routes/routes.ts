@@ -7,6 +7,7 @@ import viewPet from '@/components/viewPet.vue'
 import CadastrarPet from '@/components/CadastrarPet.vue'
 import AdotarPet from '@/components/AdotarPet.vue'
 import AdotarOuCadastrar from '@/components/CastroOuAdocao.vue'
+import SingUpTutor from '@/components/SingUpTutor.vue'
 
 
 const routes = [
@@ -15,8 +16,9 @@ const routes = [
   { path: '/showPets', component: ShowPets },
   { path: '/viewPet/:id', component: viewPet },
   { path: '/cadastrar', component: CadastrarPet },
-  { path: '/adotar',component: AdotarPet }, 
-  { path: '/adotarOuCadastrar',component: AdotarOuCadastrar }
+  { path: '/adotar', component: AdotarPet },
+  { path: '/adotarOuCadastrar', component: AdotarOuCadastrar },
+  { path: '/cadastrarTutor', component: SingUpTutor },
 ]
 
 export const router = createRouter({

@@ -34,7 +34,7 @@ function nextVideo() {
                 </ul>
                 <div class="navAuth">
                     <Router-link to="/login" class="btnLogin">Entrar</Router-link>
-                    <Router-link to="/signup" class="btnSignup">Cadastrar</Router-link>
+                    <Router-link to="/cadastrarTutor" class="btnSignup">Cadastrar</Router-link>
                 </div>
             </nav>
 

@@ -11,6 +11,22 @@ export async function buscarPetsDisponiveis() {
     }
 }
 
+export async function cadastrarTutor(data: {
+    name: string,
+    password: string,
+    phone: string,
+    birthday: string,
+    email: string,
+}) {
+    try {
+        const response = await axios.post('http://localhost:8080/tutor', data)
+        return response.data
+    } catch (error) {
+        console.error('Ocorreu um erro:', error)
+        throw error
+    }
+}
+
 export interface AnimalForm {
     name: string;
     tipoAnimal: string;
@@ -28,7 +44,7 @@ export async function cadastrarPet(animal: AnimalForm, files: File[]) {
     data.append('animal', new Blob([JSON.stringify(animal)], { type: 'application/json' }));
     files.forEach(f => data.append('images', f));
 
-    const response = await api.post('/animals', data);
+    const response = await axios.post('http://localhost:8080/animals', data);
     return response.data;
 }
 
