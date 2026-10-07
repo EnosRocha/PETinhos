@@ -8,6 +8,7 @@ import CadastrarPet from '@/components/CadastrarPet.vue'
 import AdotarPet from '@/components/AdotarPet.vue'
 import AdotarOuCadastrar from '@/components/CastroOuAdocao.vue'
 import SingUpTutor from '@/components/SingUpTutor.vue'
+import OAuth2Callback from '@/components/OAuth2Callback.vue'
 
 
 const routes = [
@@ -19,6 +20,7 @@ const routes = [
   { path: '/adotar', component: AdotarPet },
   { path: '/adotarOuCadastrar', component: AdotarOuCadastrar },
   { path: '/cadastrarTutor', component: SingUpTutor },
+  { path: '/oauth2/callback', component: OAuth2Callback }
 ]
 
 export const router = createRouter({

@@ -1,14 +1,12 @@
 import axios from "axios";
+import { useAuthStore } from '@/store/storeAuth'
 
 export async function buscarPetsDisponiveis() {
-    try {
-        const response = await axios.get('http://localhost:8080/animals');
-        console.log(response.data);
-
-        return response.data;
-    } catch (error) {
-        console.error('Ocorreu um erro:', error);
-    }
+    const auth = useAuthStore()
+    const response = await axios.get('http://localhost:8080/animals', {
+        headers: { Authorization: `Bearer ${auth.token}` }
+    });
+    return response.data;
 }
 
 export async function cadastrarTutor(data: {
@@ -18,13 +16,8 @@ export async function cadastrarTutor(data: {
     birthday: string,
     email: string,
 }) {
-    try {
-        const response = await axios.post('http://localhost:8080/tutor', data)
-        return response.data
-    } catch (error) {
-        console.error('Ocorreu um erro:', error)
-        throw error
-    }
+    const response = await axios.post('http://localhost:8080/tutor', data)
+    return response.data
 }
 
 export interface AnimalForm {
@@ -40,24 +33,16 @@ export interface AnimalForm {
 }
 
 export async function cadastrarPet(animal: AnimalForm, files: File[]) {
+    const auth = useAuthStore()
     const data = new FormData();
     data.append('animal', new Blob([JSON.stringify(animal)], { type: 'application/json' }));
     files.forEach(f => data.append('images', f));
 
-    const response = await axios.post('http://localhost:8080/animals', data);
+    const response = await axios.post('http://localhost:8080/animals', data, {
+        headers: { 
+            'Authorization': `Bearer ${auth.token}`,
+            'Content-Type': 'multipart/form-data'
+        }
+    });
     return response.data;
 }
-
-export async function handleFiles(event: Event) {
-    // const input = event.target as HTMLInputElement
-    // const files = Array.from(input.files || [])
-
-    // const formData = new FormData()
-    // files.forEach(file => formData.append('files', file))
-
-    // await axios.post(`/animals/${petId}/imagens`, formData, {
-    //     headers: { 'Content-Type': 'multipart/form-data' }
-    // })
-}
-
-

@@ -10,6 +10,7 @@ import com.example.allanimals.infrastructure.persistence.jpa.entities.AnimalImag
 import com.example.allanimals.infrastructure.persistence.jpa.mappers.AnimalMapperInfra;
 import com.example.allanimals.infrastructure.persistence.jpa.respositories.AnimalImageRepository;
 import jakarta.validation.Valid;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,8 +33,10 @@ public class AnimalController {
         this.imagemRepository = imagemRepository;
     }
 
-    @PostMapping
-    public ResponseEntity<Void> cadastrar(@RequestBody @Valid AnimalRequestDto dto) {
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Void> cadastrar(
+            @RequestPart("animal") @Valid AnimalRequestDto dto,
+            @RequestPart(value = "images", required = false) List<MultipartFile> images) {
         service.cadastrarAnimal(dto);
         return ResponseEntity.ok().build();
     }

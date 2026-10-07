@@ -17,13 +17,16 @@ public class AnimalMapperInfra {
 
         AnimalEntity animalEntity = new AnimalEntity();
         animalEntity.setName(animal.getName());
-        animalEntity.setImagens(animal.getImage().stream().map(img -> {
-            AnimalImagemEntity entity = new AnimalImagemEntity();
-            entity.setId(img.getId());
-            entity.setUrl(img.getUrl());
-            entity.setOrdem(img.getOrdem());
-            return entity;
-        }).collect(Collectors.toList()));
+        animalEntity.setImagens(animal.getImage() != null
+                        ? animal.getImage().stream().map(img -> {
+                    AnimalImagemEntity entity = new AnimalImagemEntity();
+                    entity.setId(img.getId());
+                    entity.setUrl(img.getUrl());
+                    entity.setOrdem(img.getOrdem());
+                    return entity;
+                }).collect(Collectors.toList())
+                        : new ArrayList<>()
+        );
         animalEntity.setTipoAnimal(animal.getTipoAnimal());
         animalEntity.setCor(animal.getCor());
         animalEntity.setPeso(animal.getPeso());
