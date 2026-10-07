@@ -37,7 +37,24 @@ public class AnimalController {
     public ResponseEntity<Void> cadastrar(
             @RequestPart("animal") @Valid AnimalRequestDto dto,
             @RequestPart(value = "images", required = false) List<MultipartFile> images) {
-        service.cadastrarAnimal(dto);
+
+        Long animalId = service.cadastrarAnimal(dto);
+
+        if (images != null && !images.isEmpty()) {
+            List<String> urls = cloudinaryService.uploadImagens(images);
+            AnimalEntity animalEncontrado = service.getAnimalForImage(animalId);
+
+            List<AnimalImagemEntity> imagens = new ArrayList<>();
+            for (int i = 0; i < urls.size(); i++) {
+                AnimalImagemEntity imagem = new AnimalImagemEntity();
+                imagem.setAnimal(animalEncontrado);
+                imagem.setUrl(urls.get(i));
+                imagem.setOrdem(i);
+                imagens.add(imagem);
+            }
+            imagemRepository.saveAll(imagens);
+        }
+
         return ResponseEntity.ok().build();
     }
 
@@ -58,26 +75,5 @@ public class AnimalController {
     }
 
 
-    @PostMapping("/{id}/imagens")
-    public ResponseEntity<List<String>> uploadImagens(
-            @PathVariable Long id,
-            @RequestParam("files") List<MultipartFile> files
-    ) {
-        List<String> urls = cloudinaryService.uploadImagens(files);
 
-        AnimalEntity animalEcontrado = service.getAnimalForImage(id);
-
-
-        List<AnimalImagemEntity> imagens = new ArrayList<>();
-        for (int i = 0; i < urls.size(); i++) {
-            AnimalImagemEntity imagem = new AnimalImagemEntity();
-            imagem.setAnimal(animalEcontrado);
-            imagem.setUrl(urls.get(i));
-            imagem.setOrdem(i);
-            imagens.add(imagem);
-        }
-
-        imagemRepository.saveAll(imagens);
-        return ResponseEntity.ok(urls);
-    }
 }

@@ -21,10 +21,11 @@ public class AnimalAppService {
         this.animalRepository = animalRepository;
     }
 
-    public void cadastrarAnimal(AnimalRequestDto dto) {
+    public Long cadastrarAnimal(AnimalRequestDto dto) {
         if (dto == null) throw new IllegalArgumentException("Animals information cant be null");
         Animal animal = AnimalMappersApp.toDomain(dto);
-        animalRepository.save(animal);
+        Long idRetornado = animalRepository.save(animal);
+        return idRetornado;
     }
 
     public void deletarAnimal(Long registro) {
@@ -44,9 +45,7 @@ public class AnimalAppService {
        AnimalResponseDto animalDto = AnimalMappersApp.toResponse(animal);
        return animalDto;
     }
-    public AnimalEntity getAnimalForImage(Long id){
-       Animal animal = animalRepository.getAnimal(id);
-       AnimalEntity animalEntity = AnimalMapperInfra.toEntity(animal);
-       return animalEntity;
+    public AnimalEntity getAnimalForImage(Long id) {
+        return animalRepository.getAnimalEntity(id);
     }
 }

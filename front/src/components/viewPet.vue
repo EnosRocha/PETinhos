@@ -32,7 +32,7 @@ console.log("printando o valor do pet id dentro do viewPet - >", pet.value?.regi
 
             <div class="card">
                 <div class="image-wrap">
-                    <img :src="pet.image" :alt="pet.name" />
+                    <img :src="pet.image?.[0]?.url" :alt="pet.name" />
                 </div>
 
                 <div class="info">

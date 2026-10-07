@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface AnimalRepository {
 
-    void save(Animal animal);
+    Long save(Animal animal);
     void delete(Long id);
     Animal update(Animal animal);
     List<Animal> getAllAnimals();

@@ -20,9 +20,10 @@ public class AnimalRepositoryImpl implements AnimalRepository {
     }
 
     @Override
-    public void save(Animal animal) {
+    public Long save(Animal animal) {
         AnimalEntity entity = AnimalMapperInfra.toEntity(animal);
-       animalInfraRepositor.save(entity);
+        AnimalEntity saved = animalInfraRepositor.save(entity);
+        return saved.getRegistro();
     }
 
     @Override
@@ -50,5 +51,9 @@ public class AnimalRepositoryImpl implements AnimalRepository {
         AnimalEntity animalEntity = animalInfraRepositor.findById(id).get();
         Animal animal = AnimalMapperInfra.toDomain(animalEntity);
         return animal;
+    }
+
+    public AnimalEntity getAnimalEntity(Long id) {
+        return animalInfraRepositor.findById(id).get();
     }
 }
