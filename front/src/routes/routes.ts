@@ -28,11 +28,9 @@ export const router = createRouter({
   routes,
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to) => {
   const auth = useAuthStore()
   if (to.meta.requiresAuth && !auth.token) {
-    next('/login')
-  } else {
-    next()
+    return '/login'
   }
 })
