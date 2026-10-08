@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useAuthStore } from '@/store/storeAuth'
 
 import Head from '@/components/Head.vue'
 import Login from '@/components/Login.vue'
@@ -10,20 +11,28 @@ import AdotarOuCadastrar from '@/components/CastroOuAdocao.vue'
 import SingUpTutor from '@/components/SingUpTutor.vue'
 import OAuth2Callback from '@/components/OAuth2Callback.vue'
 
-
 const routes = [
   { path: '/', component: Head },
   { path: '/login', component: Login },
-  { path: '/showPets', component: ShowPets },
-  { path: '/viewPet/:id', component: viewPet },
-  { path: '/cadastrar', component: CadastrarPet },
-  { path: '/adotar', component: AdotarPet },
-  { path: '/adotarOuCadastrar', component: AdotarOuCadastrar },
   { path: '/cadastrarTutor', component: SingUpTutor },
-  { path: '/oauth2/callback', component: OAuth2Callback }
+  { path: '/oauth2/callback', component: OAuth2Callback },
+  { path: '/showPets', component: ShowPets, meta: { requiresAuth: true } },
+  { path: '/viewPet/:id', component: viewPet, meta: { requiresAuth: true } },
+  { path: '/cadastrar', component: CadastrarPet, meta: { requiresAuth: true } },
+  { path: '/adotar', component: AdotarPet, meta: { requiresAuth: true } },
+  { path: '/adotarOuCadastrar', component: AdotarOuCadastrar, meta: { requiresAuth: true } },
 ]
 
 export const router = createRouter({
   history: createWebHistory(),
   routes,
+})
+
+router.beforeEach((to, from, next) => {
+  const auth = useAuthStore()
+  if (to.meta.requiresAuth && !auth.token) {
+    next('/login')
+  } else {
+    next()
+  }
 })
