@@ -1,11 +1,22 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref } from 'vue';
+import { useAuthStore } from '@/store/storeAuth'
+import { useRouter } from 'vue-router';
 
 const email = ref('')
 const password = ref('')
 
-function onSubmit() {
-    // console.log('login', { email: email.value, password: password.value })
+const router = useRouter()
+const auth = useAuthStore()
+
+async function onSubmit() {
+    try {
+        const token = await login(email.value, password.value)
+        auth.salvarToken(token)
+        router.push('/adotarOuCadastrar')
+    } catch (e) {
+        console.error('Erro no login:', e)
+    }
 }
 
 function loginGoogle() {

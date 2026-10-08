@@ -11,7 +11,7 @@ const router = useRouter()
                 <button id="cadastrarPet" @click="router.push('/cadastrar')">
                     🐾 Cadastrar Pet
                 </button>
-                <button id="adotarPet" @click="router.push('/adotar')">
+                <button id="adotarPet" @click="router.push('/showPets')">
                     ❤️ Adotar Pet
                 </button>
             </div>

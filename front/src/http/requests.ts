@@ -46,3 +46,9 @@ export async function cadastrarPet(animal: AnimalForm, files: File[]) {
     });
     return response.data;
 }
+
+
+export async function login(email: string, password: string) {
+    const response = await axios.post('http://localhost:8080/auth/login', { email, password })
+    return response.data
+}

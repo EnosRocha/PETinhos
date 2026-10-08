@@ -5,7 +5,7 @@ const router = useRouter()
 
 const props = defineProps<{
     registro?: number
-    image?: string
+    image?: { id: number, url: string, ordem: number }[]
     title?: string
     description?: string
 }>()
@@ -19,7 +19,7 @@ console.log("printando id do pet no card -> ", props.registro)
 <template>
     <div class="cardDiv" @click="router.push(`/viewPet/${props.registro}`)">
         <div class="cardImage">
-            <img :src="image" :alt="title" />
+            <img :src="image?.[0]?.url" :alt="title" />
         </div>
         <div class="info">
             <span class="title">{{ title }}</span>

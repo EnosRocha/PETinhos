@@ -7,6 +7,23 @@ import { ref } from 'vue'
 const route = useRoute()
 const router = useRouter()
 const animalStore = useAnimalStore()
+const imagemAtual = ref(0)
+
+function proximo() {
+    if (pet.value && imagemAtual.value < pet.value.image.length - 1) {
+        imagemAtual.value++
+    } else {
+        imagemAtual.value = 0
+    }
+}
+
+function anterior() {
+    if (imagemAtual.value > 0) {
+        imagemAtual.value--
+    } else if (pet.value) {
+        imagemAtual.value = pet.value.image.length - 1
+    }
+}
 
 onMounted(async () => {
     if (animalStore.pets.length === 0) {
@@ -32,7 +49,15 @@ console.log("printando o valor do pet id dentro do viewPet - >", pet.value?.regi
 
             <div class="card">
                 <div class="image-wrap">
-                    <img :src="pet.image?.[0]?.url" :alt="pet.name" />
+                    <div class="carousel" v-if="pet.image && pet.image.length > 0">
+                        <img :src="pet.image[imagemAtual]?.url" :alt="pet.name" />
+                        <div class="carousel-controls" v-if="pet.image.length > 1">
+                            <button class="arrow left" @click="anterior">‹</button>
+                            <span class="counter">{{ imagemAtual + 1 }} / {{ pet.image.length }}</span>
+                            <button class="arrow right" @click="proximo">›</button>
+                        </div>
+                    </div>
+                    <div v-else class="sem-imagem">Sem foto</div>
                 </div>
 
                 <div class="info">
@@ -95,7 +120,7 @@ console.log("printando o valor do pet id dentro do viewPet - >", pet.value?.regi
     background: transparent;
     padding: 48px 32px;
     position: relative;
-   
+
 }
 
 .loading {
@@ -124,7 +149,7 @@ console.log("printando o valor do pet id dentro do viewPet - >", pet.value?.regi
 
 }
 
-.backgroundContainer img {   
+.backgroundContainer img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -186,6 +211,64 @@ console.log("printando o valor do pet id dentro do viewPet - >", pet.value?.regi
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.carousel {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.carousel img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.carousel-controls {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    pointer-events: none;
+}
+
+.arrow {
+    pointer-events: all;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 1.4rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 8px;
+    transition: background 0.2s;
+}
+
+.arrow:hover {
+    background: rgba(0, 0, 0, 0.75);
+}
+
+.counter {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #fff;
+    font-size: 0.85rem;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 2px 8px;
+    border-radius: 10px;
+    pointer-events: none;
 }
 
 .info {
