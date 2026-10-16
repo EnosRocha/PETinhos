@@ -46,7 +46,7 @@ public class AnimalEntity {
     @Column(name = "id_do_dono")
     private Integer donoId;
 
-    @Column(name = "descricaao_do_animal")
+    @Column(name = "descricaao_do_animal", length = 1000)
     private String descricao;
 
     @Column(name = "endereco_do_animal")

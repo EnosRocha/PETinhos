@@ -5,6 +5,9 @@ import com.example.allanimals.application.dto.AnimalResponseDto;
 import com.example.allanimals.application.mappers.AnimalMappersApp;
 import com.example.allanimals.application.service.AnimalAppService;
 import com.example.allanimals.application.service.CloudinaryService;
+import com.example.allanimals.domain.model.entities.Tutor;
+import com.example.allanimals.domain.model.objectValue.Email;
+import com.example.allanimals.domain.repositories.TutorRepository;
 import com.example.allanimals.infrastructure.persistence.jpa.entities.AnimalEntity;
 import com.example.allanimals.infrastructure.persistence.jpa.entities.AnimalImagemEntity;
 import com.example.allanimals.infrastructure.persistence.jpa.mappers.AnimalMapperInfra;
@@ -12,6 +15,7 @@ import com.example.allanimals.infrastructure.persistence.jpa.respositories.Anima
 import jakarta.validation.Valid;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,12 +29,14 @@ public class AnimalController {
     private final AnimalAppService service;
     private final CloudinaryService cloudinaryService;
     private final AnimalImageRepository imagemRepository;
+    private final TutorRepository tutorRepository;
 
 
-    public AnimalController(AnimalAppService service, CloudinaryService cloudinaryService, AnimalImageRepository imagemRepository) {
+    public AnimalController(AnimalAppService service, CloudinaryService cloudinaryService, AnimalImageRepository imagemRepository, TutorRepository tutorRepository) {
         this.service = service;
         this.cloudinaryService = cloudinaryService;
         this.imagemRepository = imagemRepository;
+        this.tutorRepository = tutorRepository;
     }
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -38,7 +44,9 @@ public class AnimalController {
             @RequestPart("animal") @Valid AnimalRequestDto dto,
             @RequestPart(value = "images", required = false) List<MultipartFile> images) {
 
-        Long animalId = service.cadastrarAnimal(dto);
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Tutor tutor = tutorRepository.findByEmail(new Email(email));
+        Long animalId = service.cadastrarAnimal(dto, tutor.getTutorId());
 
         if (images != null && !images.isEmpty()) {
             List<String> urls = cloudinaryService.uploadImagens(images);

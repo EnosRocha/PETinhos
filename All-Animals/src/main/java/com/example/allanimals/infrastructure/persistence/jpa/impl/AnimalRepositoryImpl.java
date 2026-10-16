@@ -5,6 +5,7 @@ import com.example.allanimals.domain.repositories.AnimalRepository;
 import com.example.allanimals.infrastructure.persistence.jpa.entities.AnimalEntity;
 import com.example.allanimals.infrastructure.persistence.jpa.mappers.AnimalMapperInfra;
 import com.example.allanimals.infrastructure.persistence.jpa.respositories.AnimalInfraRepository;
+import com.example.allanimals.infrastructure.persistence.jpa.respositories.TutorInfraRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,14 +15,22 @@ import java.util.stream.Collectors;
 public class AnimalRepositoryImpl implements AnimalRepository {
 
     private final AnimalInfraRepository animalInfraRepositor;
+    private final TutorInfraRepository tutorInfraRepository;
 
-    public AnimalRepositoryImpl(AnimalInfraRepository animalInfraRepositor) {
+
+
+    public AnimalRepositoryImpl(AnimalInfraRepository animalInfraRepositor, TutorInfraRepository tutorInfraRepository) {
         this.animalInfraRepositor = animalInfraRepositor;
+        this.tutorInfraRepository = tutorInfraRepository;
     }
 
     @Override
     public Long save(Animal animal) {
         AnimalEntity entity = AnimalMapperInfra.toEntity(animal);
+        if (animal.getTutorId() != null) {
+            tutorInfraRepository.findById(animal.getTutorId())
+                    .ifPresent(entity::setTutor);
+        }
         AnimalEntity saved = animalInfraRepositor.save(entity);
         return saved.getRegistro();
     }

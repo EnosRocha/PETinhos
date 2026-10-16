@@ -10,6 +10,7 @@ import com.example.allanimals.infrastructure.persistence.jpa.mappers.AnimalMappe
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,9 +22,10 @@ public class AnimalAppService {
         this.animalRepository = animalRepository;
     }
 
-    public Long cadastrarAnimal(AnimalRequestDto dto) {
+    public Long cadastrarAnimal(AnimalRequestDto dto, UUID tutorId) {
         if (dto == null) throw new IllegalArgumentException("Animals information cant be null");
         Animal animal = AnimalMappersApp.toDomain(dto);
+        animal.setTutorId(tutorId);
         Long idRetornado = animalRepository.save(animal);
         return idRetornado;
     }
