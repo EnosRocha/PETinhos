@@ -3,11 +3,41 @@ import { computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAnimalStore } from '@/store/animalsStore'
 import { ref } from 'vue'
+import { buscarPet, buscarTutor } from '@/http/requests'
 
 const route = useRoute()
 const router = useRouter()
 const animalStore = useAnimalStore()
 const imagemAtual = ref(0)
+
+const phoneFoundForId = ref('')
+const erroBuscaTelefone = ref('')
+
+
+async function getNumber() {
+    erroBuscaTelefone.value = ''
+    phoneFoundForId.value = ''
+    const animalId = Number(route.params.id)
+
+    if (!Number.isInteger(animalId) || animalId <= 0) {
+        erroBuscaTelefone.value = 'Não foi possível identificar este pet.'
+        return
+    }
+
+    try {
+        const animalFound = await buscarPet(animalId)
+        if (!animalFound.tutorId) {
+            erroBuscaTelefone.value = 'Este pet não possui um tutor associado.'
+            return
+        }
+
+        const tutorFound = await buscarTutor(animalFound.tutorId)
+        phoneFoundForId.value = tutorFound.phone
+    } catch (error) {
+        console.error('Erro ao buscar o telefone do tutor:', error)
+        erroBuscaTelefone.value = 'Não foi possível buscar o telefone. Tente novamente.'
+    }
+}
 
 function proximo() {
     if (pet.value && imagemAtual.value < pet.value.image.length - 1) {
@@ -91,7 +121,9 @@ console.log("printando o valor do pet id dentro do viewPet - >", pet.value?.regi
                         </div>
                     </div>
 
-                    <button class="adotar">Quero adotar 🐾</button>
+                    <button class="adotar" @click="getNumber">Quero adotar 🐾</button>
+                    <p v-if="phoneFoundForId">Telefone do tutor: {{ phoneFoundForId }}</p>
+                    <p v-if="erroBuscaTelefone" role="alert">{{ erroBuscaTelefone }}</p>
                 </div>
             </div>
 

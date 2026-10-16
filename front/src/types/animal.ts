@@ -24,6 +24,7 @@ export interface Animal {
     cor: string
     idade: number
     donoId: number
+    tutorId: string | null
     descricao: string
     endereco: string
 }

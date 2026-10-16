@@ -10,12 +10,14 @@ import AdotarPet from '@/components/AdotarPet.vue'
 import AdotarOuCadastrar from '@/components/CastroOuAdocao.vue'
 import SingUpTutor from '@/components/SingUpTutor.vue'
 import OAuth2Callback from '@/components/OAuth2Callback.vue'
+import CompletarPerfil from '@/components/CompletarPerfil.vue'
 
 const routes = [
   { path: '/', component: Head },
   { path: '/login', component: Login },
   { path: '/cadastrarTutor', component: SingUpTutor },
   { path: '/oauth2/callback', component: OAuth2Callback },
+  { path: '/completarPerfil', component: CompletarPerfil, meta: { requiresAuth: true } },
   { path: '/showPets', component: ShowPets, meta: { requiresAuth: true } },
   { path: '/viewPet/:id', component: viewPet, meta: { requiresAuth: true } },
   { path: '/cadastrar', component: CadastrarPet, meta: { requiresAuth: true } },

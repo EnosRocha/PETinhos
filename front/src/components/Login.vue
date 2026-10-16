@@ -56,7 +56,7 @@ function loginGoogle() {
 
             <p class="signup">
                 Não tem conta?
-                <router-link to="/signup">Cadastre-se</router-link>
+                <button type="button" @click="router.push('/cadastrarTutor')" class="forgot">Cadastre-se</button>
             </p>
         </form>
     </div>
