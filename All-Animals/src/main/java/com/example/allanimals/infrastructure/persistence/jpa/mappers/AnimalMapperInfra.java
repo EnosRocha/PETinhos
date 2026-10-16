@@ -60,6 +60,8 @@ public class AnimalMapperInfra {
         animal.setIdade(dto.getIdade());
         animal.setRegistro(new RegistroAnimal(dto.getRegistro()));
         animal.setEndereco(dto.getEndereco());
+        animal.setDonoId(dto.getDonoId());
+        animal.setTutorId(dto.getTutor() != null ? dto.getTutor().getId() : null);
 
         return animal;
     }

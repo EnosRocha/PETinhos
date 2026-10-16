@@ -4,6 +4,7 @@ import com.example.allanimals.domain.model.entities.AnimalImage;
 import com.example.allanimals.domain.model.enums.TipoAnimal;
 
 import java.util.List;
+import java.util.UUID;
 
 public record AnimalResponseDto(
         Long registro,
@@ -16,7 +17,8 @@ public record AnimalResponseDto(
         Integer idade,
         Integer donoId,
         String descricao,
-        String endereco
+        String endereco,
+        UUID tutorId
 ) {
 
 

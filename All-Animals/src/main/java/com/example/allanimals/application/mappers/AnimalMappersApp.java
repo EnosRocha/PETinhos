@@ -41,7 +41,8 @@ public class AnimalMappersApp {
                 animal.getIdade(),
                 animal.getDonoId(),
                 animal.getDescricao(),
-                animal.getEndereco()
+                animal.getEndereco(),
+                animal.getTutorId()
         );
     }
 }
