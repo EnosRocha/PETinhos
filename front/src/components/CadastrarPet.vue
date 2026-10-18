@@ -93,6 +93,9 @@ async function enviar() {
                 <label>Idade
                     <input v-model.number="form.idade" type="number" min="0" />
                 </label>
+            </div>
+
+            <div class="row">
                 <label>Cor
                     <input v-model="form.cor" />
                 </label>
