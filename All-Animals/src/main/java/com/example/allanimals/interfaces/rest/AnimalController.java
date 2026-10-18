@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/animals")
@@ -80,6 +81,11 @@ public class AnimalController {
     @GetMapping("/{id}")
     public ResponseEntity<AnimalResponseDto> buscarPorId(@PathVariable Long id) {
         return ResponseEntity.ok(service.getAnimal(id));
+    }
+
+    @GetMapping("/tutor/{id}")
+    public ResponseEntity<List<AnimalResponseDto>> buscarTodosOsAnimaisEmDoacaoDeUmTutor(@PathVariable UUID id){
+        return ResponseEntity.ok(service.getAllAnimals(id));
     }
 
 
