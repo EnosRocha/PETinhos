@@ -21,7 +21,14 @@ export async function buscarMeuPerfil(): Promise<TutorProfile> {
 
 export async function completarMeuPerfil(data: { phone: string; birthday: string }) {
     const auth = useAuthStore()
-    const response = await axios.put(`${API_URL}/tutor/me`, data, {
+    const perfil = await buscarMeuPerfil()
+    const response = await axios.put(`${API_URL}/tutor/${perfil.id}`, {
+        name: perfil.name,
+        email: perfil.email,
+        password: 'placeholder',
+        phone: data.phone,
+        birthday: data.birthday,
+    }, {
         headers: { Authorization: `Bearer ${auth.token}` }
     })
     return response.data
