@@ -33,6 +33,10 @@ async function getNumber() {
 
         const tutorFound = await buscarTutor(animalFound.tutorId)
         phoneFoundForId.value = tutorFound.phone
+
+        const linkWhatsapp = `https://wa.me/${phoneFoundForId.value.replace(/\D/g, '')}`
+        window.open(linkWhatsapp, '_blank')
+        
     } catch (error) {
         console.error('Erro ao buscar o telefone do tutor:', error)
         erroBuscaTelefone.value = 'Não foi possível buscar o telefone. Tente novamente.'
@@ -122,8 +126,7 @@ console.log("printando o valor do pet id dentro do viewPet - >", pet.value?.regi
                     </div>
 
                     <button class="adotar" @click="getNumber">Quero adotar 🐾</button>
-                    <p v-if="phoneFoundForId">Telefone do tutor: {{ phoneFoundForId }}</p>
-                    <p v-if="erroBuscaTelefone" role="alert">{{ erroBuscaTelefone }}</p>
+                   
                 </div>
             </div>
 
