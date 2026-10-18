@@ -1,11 +1,20 @@
 <script lang="ts" setup>
 import { onMounted, ref, computed } from 'vue';
 import { useAnimalStore } from '@/store/animalsStore';
+import { useAuthStore } from '@/store/storeAuth';
 import Card from '@/components/Card.vue';
 import { useRouter } from 'vue-router';
+import type { Animal } from '@/types/animal';
+import { buscarMeuPerfil, buscarTodosOsAnimaisEmDoacaoDeUmTutor } from "@/http/requests"
 
-const animalStore = useAnimalStore();
+
 const router = useRouter();
+const animalStore = useAnimalStore();
+const auth = useAuthStore()
+
+
+const animaisRetornados = ref<Animal[]>([]);
+
 
 const tipos = [
     { value: 'CACHORRO', label: 'Cachorro' },
@@ -19,17 +28,31 @@ const tipos = [
 
 const filtroAtivo = ref<string | null>(null)
 
+function sair() {
+    auth.logout()
+    router.push('/login')
+}
+
+
+
 const petsFiltrados = computed(() => {
-    if (!filtroAtivo.value) return animalStore.pets
-    return animalStore.pets.filter(p => p.tipoAnimal === filtroAtivo.value)
-})
+    if (!filtroAtivo.value) {
+        return animaisRetornados.value;
+    }
+
+    return animaisRetornados.value.filter(
+        pet => pet.tipoAnimal === filtroAtivo.value
+    );
+});
+
 
 function toggleFiltro(tipo: string) {
     filtroAtivo.value = filtroAtivo.value === tipo ? null : tipo
 }
 
 onMounted(async () => {
-    await animalStore.fetchPets();
+    const tutorEncontrado = await buscarMeuPerfil();
+    animaisRetornados.value = await buscarTodosOsAnimaisEmDoacaoDeUmTutor(tutorEncontrado.id);
 })
 </script>
 
@@ -38,7 +61,7 @@ onMounted(async () => {
 
         <div v-if="animalStore.loading" class="loading">
             <span class="paw">🐾</span>
-            <p>Buscando pets disponíveis...</p>
+            <p>Buscando pets em doação...</p>
         </div>
 
         <div v-else class="layout">
@@ -55,8 +78,8 @@ onMounted(async () => {
 
             <div class="content">
                 <div class="page-header">
-                    <h1>Pets disponíveis</h1>
-                    <p>{{ petsFiltrados.length }} animais esperando por você</p>
+                    <h1>Pets que você está doando</h1>
+                    <p>{{ petsFiltrados.length }} para adoção</p>
                 </div>
 
                 <div class="grid">
@@ -78,6 +101,11 @@ onMounted(async () => {
             <button class="top-btn" @click="router.push('/minhasDoacoes')">
                 Minhas doações
             </button>
+            <button class="top-btn" @click="router.push('/showPets')">
+                Ver todos os pets
+            </button>
+            <button class="top-btn" @click="sair">Sair</button>
+
         </div>
 
         <div class="backgroundContainer">
@@ -134,6 +162,7 @@ onMounted(async () => {
     cursor: pointer;
     transition: all 0.2s;
 }
+
 .layout {
     max-width: 1200px;
     margin: 0 auto;
