@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.Authentication;
 
 import java.util.List;
 import java.util.UUID;
@@ -51,5 +52,11 @@ public class TutorController {
     @GetMapping("/{id}")
     public ResponseEntity<TutorResponseDto> buscarPorId(@PathVariable UUID id) {
         return ResponseEntity.ok(service.getTutor(id));
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<TutorResponseDto> buscarMeuPerfil(Authentication authentication) {
+        String email = authentication.getName();
+        return ResponseEntity.ok(service.getTutorByEmail(email));
     }
 }
