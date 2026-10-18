@@ -53,29 +53,31 @@ public class TutorAppService {
     }
 
     public void updateTutor(UUID id, TutorRequestDto tutorRequestDto) {
-
         Tutor tutorEncontrado = tutorRepository.getTutor(id);
 
-        if (!tutorRequestDto.birthday().equals("")) {
+        if (tutorRequestDto.birthday() != null && !tutorRequestDto.birthday().equals("")) {
             tutorEncontrado.setBirthday(tutorRequestDto.birthday());
         }
-        if (!tutorRequestDto.name().equals("")) {
+        if (tutorRequestDto.name() != null && !tutorRequestDto.name().equals("")) {
             tutorEncontrado.setName(tutorRequestDto.name());
         }
-        if (!tutorRequestDto.email().equals("")) {
+        if (tutorRequestDto.email() != null && !tutorRequestDto.email().equals("")) {
             tutorEncontrado.setEmail(new Email(tutorRequestDto.email()));
         }
-        if (!tutorRequestDto.phone().equals("")) {
+        if (tutorRequestDto.phone() != null && !tutorRequestDto.phone().equals("")) {
             tutorEncontrado.setPhone(new Telefone(tutorRequestDto.phone()));
         }
 
-
-        Tutor tutor = TutorMappersApp.toDomain(tutorRequestDto);
-        tutorRepository.update(tutor);
+        tutorRepository.update(tutorEncontrado);
     }
 
 
     public void deleteTutor(UUID id) {
         tutorRepository.delete(id);
+    }
+
+    public TutorResponseDto getTutorByEmail(String email) {
+        Tutor tutor = tutorRepository.findByEmail(new Email(email));
+        return TutorMappersApp.toResponse(tutor);
     }
 }
