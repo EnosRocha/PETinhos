@@ -36,7 +36,7 @@ async function getNumber() {
 
         const linkWhatsapp = `https://wa.me/${phoneFoundForId.value.replace(/\D/g, '')}`
         window.open(linkWhatsapp, '_blank')
-        
+
     } catch (error) {
         console.error('Erro ao buscar o telefone do tutor:', error)
         erroBuscaTelefone.value = 'Não foi possível buscar o telefone. Tente novamente.'
@@ -126,7 +126,7 @@ console.log("printando o valor do pet id dentro do viewPet - >", pet.value?.regi
                     </div>
 
                     <button class="adotar" @click="getNumber">Quero adotar 🐾</button>
-                   
+
                 </div>
             </div>
 
@@ -189,6 +189,8 @@ console.log("printando o valor do pet id dentro do viewPet - >", pet.value?.regi
     height: 100%;
     object-fit: cover;
     object-position: center;
+    opacity: 0.15;
+
 }
 
 @keyframes bounce {
