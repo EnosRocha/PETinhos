@@ -36,3 +36,9 @@ build/
 
 ###env
 All-Animals/.env
+
+
+.env
+**/.env
+.idea/
+target/
