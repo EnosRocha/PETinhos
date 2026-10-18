@@ -1,11 +1,14 @@
 <script lang="ts" setup>
 import { onMounted, ref, computed } from 'vue';
 import { useAnimalStore } from '@/store/animalsStore';
+import { useAuthStore } from '@/store/storeAuth';
 import Card from '@/components/Card.vue';
 import { useRouter } from 'vue-router';
 
 const animalStore = useAnimalStore();
 const router = useRouter();
+const auth = useAuthStore()
+
 
 const tipos = [
     { value: 'CACHORRO', label: 'Cachorro' },
@@ -26,6 +29,11 @@ const petsFiltrados = computed(() => {
 
 function toggleFiltro(tipo: string) {
     filtroAtivo.value = filtroAtivo.value === tipo ? null : tipo
+}
+
+function sair() {
+  auth.logout()
+  router.push('/login')
 }
 
 onMounted(async () => {
@@ -78,7 +86,11 @@ onMounted(async () => {
             <button class="top-btn" @click="router.push('/minhasDoacoes')">
                 Minhas doações
             </button>
+
+            <button class="top-btn" @click="sair">Sair</button>
+            
         </div>
+        
 
         <div class="backgroundContainer">
             <img src="../assets/images/fundo-patinhas.png" alt="background">
