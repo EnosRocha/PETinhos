@@ -80,6 +80,10 @@ onMounted(async () => {
             </button>
         </div>
 
+        <div class="backgroundContainer">
+            <img src="../assets/images/fundo-patinhas.png" alt="background">
+        </div>
+
     </div>
 </template>
 
@@ -89,8 +93,25 @@ onMounted(async () => {
 .page {
     font-family: 'Poppins', sans-serif;
     min-height: 100vh;
-    background: rgb(251, 141, 101);
     padding: 48px 32px;
+}
+
+.backgroundContainer {
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+
+}
+
+.backgroundContainer img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0.15;
 }
 
 .top-ntm {
