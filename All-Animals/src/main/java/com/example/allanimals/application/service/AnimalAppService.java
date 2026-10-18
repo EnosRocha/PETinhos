@@ -42,6 +42,34 @@ public class AnimalAppService {
         return response;
     }
 
+
+    public List<AnimalResponseDto> getAllAnimals(UUID id) {
+
+        System.out.println("Tutor solicitado: " + id);
+
+        List<Animal> animals = animalRepository.getAllAnimals();
+
+        animals.forEach(animal ->
+                System.out.println(
+                        "Animal: " + animal.getRegistro()
+                                + " | Nome: " + animal.getName()
+                                + " | Tutor do animal: " + animal.getTutorId()
+                )
+        );
+
+        List<Animal> animalsFiltrados = animals.stream()
+                .filter(animal -> id != null && id.equals(animal.getTutorId()))
+                .toList();
+
+        System.out.println("Total antes do filtro: " + animals.size());
+        System.out.println("Total depois do filtro: " + animalsFiltrados.size());
+
+        return animalsFiltrados.stream()
+                .map(AnimalMappersApp::toResponse)
+                .toList();
+    }
+
+
     public AnimalResponseDto getAnimal(Long id){
        Animal animal = animalRepository.getAnimal(id);
        AnimalResponseDto animalDto = AnimalMappersApp.toResponse(animal);
