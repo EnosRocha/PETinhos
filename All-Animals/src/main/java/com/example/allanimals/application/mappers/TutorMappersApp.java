@@ -28,7 +28,7 @@ public class TutorMappersApp {
         return new TutorResponseDto(
                 tutor.getTutorId(),
                 tutor.getName(),
-                tutor.getPhone().getFormatado(),
+                tutor.getPhone() != null ? tutor.getPhone().getFormatado() : null,
                 tutor.getBirthday(),
                 tutor.getEmail().getEmail()
         );
