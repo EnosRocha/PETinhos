@@ -19,6 +19,14 @@ export async function buscarMeuPerfil(): Promise<TutorProfile> {
     return response.data
 }
 
+export async function buscarTodosOsAnimaisEmDoacaoDeUmTutor(tutorId: string) {
+    const auth = useAuthStore()
+    const response = await axios.get(`${API_URL}/animals/tutor/${tutorId}`, {
+        headers: { Authorization: `Bearer ${auth.token}` }
+    })
+    return response.data
+}
+
 export async function completarMeuPerfil(data: { phone: string; birthday: string }) {
     const auth = useAuthStore()
     const perfil = await buscarMeuPerfil()
