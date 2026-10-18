@@ -14,6 +14,16 @@ const phoneFoundForId = ref('')
 const erroBuscaTelefone = ref('')
 
 
+function linkWhatsapp(telefone: string, nomePet: string): string {
+  let numero = telefone.replace(/\D/g, '')
+  if (numero.length <= 11) numero = '55' + numero
+
+  const mensagem = `Olá! Vi o ${nomePet} no PETinhos e tenho interesse em adotar. Ainda está disponível?`
+
+  return `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`
+}
+
+
 async function getNumber() {
     erroBuscaTelefone.value = ''
     phoneFoundForId.value = ''
@@ -34,9 +44,10 @@ async function getNumber() {
         const tutorFound = await buscarTutor(animalFound.tutorId)
         phoneFoundForId.value = tutorFound.phone
 
-        const linkWhatsapp = `https://wa.me/${phoneFoundForId.value.replace(/\D/g, '')}`
-        window.open(linkWhatsapp, '_blank')
-
+        const url = linkWhatsapp(phoneFoundForId.value, pet.value.name)
+       
+        window.open(url, '_blank')
+        
     } catch (error) {
         console.error('Erro ao buscar o telefone do tutor:', error)
         erroBuscaTelefone.value = 'Não foi possível buscar o telefone. Tente novamente.'
