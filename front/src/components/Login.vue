@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import { useAuthStore } from '@/store/storeAuth'
 import { useRouter } from 'vue-router';
+import { login } from '@/http/requests'
 
 const email = ref('')
 const password = ref('')
@@ -47,8 +48,7 @@ function loginGoogle() {
             </div>
 
 
-            <button class="btnGoogle" @click="loginGoogle">Entrar com Google</button>
-
+            <button type="button" class="btnGoogle" @click="loginGoogle">Entrar com Google</button>
 
             <a class="forgot" href="#">Esqueceu a senha?</a>
 
