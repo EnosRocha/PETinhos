@@ -9,6 +9,7 @@ import com.example.allanimals.domain.model.entities.Tutor;
 import com.example.allanimals.domain.model.objectValue.Email;
 import com.example.allanimals.domain.model.objectValue.Telefone;
 import com.example.allanimals.infrastructure.persistence.jpa.impl.TutorRepositoryImpl;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.Serial;
@@ -22,12 +23,14 @@ public class TutorAppService {
     private final TutorRepositoryImpl tutorRepository;
 
 
-    public TutorAppService(TutorRepositoryImpl tutorRepository) {
+    public TutorAppService(TutorRepositoryImpl tutorRepository, PasswordEncoder passwordEncoder) {
         this.tutorRepository = tutorRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public void cadastrarTutor(TutorRequestDto tutorRequestDto) {
         Tutor tutor = TutorMappersApp.toDomain(tutorRequestDto);
+        tutor.setPassword(passwordEncoder.encode(tutorRequestDto.password()));
         tutorRepository.save(tutor);
 
     }
