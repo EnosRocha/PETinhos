@@ -21,6 +21,8 @@ import java.util.stream.Collectors;
 public class TutorAppService {
 
     private final TutorRepositoryImpl tutorRepository;
+    private final PasswordEncoder passwordEncoder;
+
 
 
     public TutorAppService(TutorRepositoryImpl tutorRepository, PasswordEncoder passwordEncoder) {
