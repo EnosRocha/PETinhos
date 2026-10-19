@@ -1,5 +1,6 @@
 package com.example.allanimals.domain.model.entities;
 
+import com.example.allanimals.domain.model.enums.StatusAnimal;
 import com.example.allanimals.domain.model.enums.TipoAnimal;
 import com.example.allanimals.domain.model.objectValue.RegistroAnimal;
 
@@ -16,6 +17,16 @@ public class Animal {
     private Integer idade;
     private RegistroAnimal registro;
     private Integer donoId;
+
+    public StatusAnimal getStatusAnimal() {
+        return statusAnimal;
+    }
+
+    public void setStatusAnimal(StatusAnimal statusAnimal) {
+        this.statusAnimal = statusAnimal;
+    }
+
+    private StatusAnimal statusAnimal;
 
     public List<AnimalImage> getImage() {
         return image;
@@ -116,5 +127,9 @@ public class Animal {
 
     public void setIdade(Integer idade) {
         this.idade = idade;
+    }
+
+    public void getStatusAnimal(StatusAnimal statusAnimal) {
+        this.statusAnimal = statusAnimal;
     }
 }

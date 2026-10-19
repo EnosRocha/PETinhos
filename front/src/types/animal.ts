@@ -27,4 +27,10 @@ export interface Animal {
     tutorId: string | null
     descricao: string
     endereco: string
+    statusAnimal: StatusAnimal
+}
+
+export enum StatusAnimal {
+    DISPONIVEL = 'DISPONÍVEL',
+    ADOTADO = 'ADOTADO'
 }

@@ -73,6 +73,12 @@ public class AnimalController {
         return ResponseEntity.noContent().build();
     }
 
+    @PatchMapping("/{id}/finalizar")
+    public ResponseEntity<Void> finalizar(@PathVariable Long id) {
+        service.finalizarAdocao(id);
+        return ResponseEntity.noContent().build();
+    }
+
     @GetMapping
     public ResponseEntity<List<AnimalResponseDto>> listar() {
         return ResponseEntity.ok(service.getAllAnimals());

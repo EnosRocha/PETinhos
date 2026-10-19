@@ -3,6 +3,7 @@ package com.example.allanimals.application.mappers;
 import com.example.allanimals.application.dto.AnimalRequestDto;
 import com.example.allanimals.application.dto.AnimalResponseDto;
 import com.example.allanimals.domain.model.entities.Animal;
+import com.example.allanimals.domain.model.enums.StatusAnimal;
 import com.example.allanimals.infrastructure.persistence.jpa.entities.AnimalEntity;
 
 public class AnimalMappersApp {
@@ -24,6 +25,8 @@ public class AnimalMappersApp {
         animal.setEndereco(dto.endereco());
 
 
+
+
         return animal;
     }
 
@@ -42,7 +45,8 @@ public class AnimalMappersApp {
                 animal.getDonoId(),
                 animal.getDescricao(),
                 animal.getEndereco(),
-                animal.getTutorId()
+                animal.getTutorId(),
+                animal.getStatusAnimal()
         );
     }
 }

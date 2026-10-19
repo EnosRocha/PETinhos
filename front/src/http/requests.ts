@@ -71,6 +71,7 @@ export interface AnimalForm {
     donoId: number;
     descricao: string;
     endereco: string;
+
 }
 
 export async function cadastrarPet(animal: AnimalForm, files: File[]) {
@@ -105,6 +106,14 @@ export async function buscarTutor(id: string) {
 export async function buscarPet(id: number){
     const response = await axios.get(`${API_URL}/animals/${id}`, {
         headers: { Authorization: `Bearer ${useAuthStore().token}` }
+    })
+    return response.data
+}
+
+export async function finalizarAdocao(animalId: number) {
+    const auth = useAuthStore()
+    const response = await axios.patch(`${API_URL}/animals/${animalId}/finalizar`,null, {
+        headers: { Authorization: `Bearer ${auth.token}` }
     })
     return response.data
 }

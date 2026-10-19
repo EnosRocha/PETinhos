@@ -1,6 +1,7 @@
 package com.example.allanimals.application.dto;
 
 import com.example.allanimals.domain.model.entities.AnimalImage;
+import com.example.allanimals.domain.model.enums.StatusAnimal;
 import com.example.allanimals.domain.model.enums.TipoAnimal;
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.*;
@@ -36,7 +37,12 @@ public record AnimalRequestDto(
                     String descricao,
 
                     @NotBlank(message = "O endereço é obrigatório")
-                    String endereco) {
+                    String endereco )
+
+
+
+
+{
 
 
 }

@@ -1,6 +1,27 @@
 <script lang="ts" setup>
 import { useRouter } from 'vue-router'
 const router = useRouter()
+import { finalizarAdocao } from '@/http/requests'
+
+
+function isMinhaAdocao() {
+    return router.currentRoute.value.path === '/minhasDoacoes'
+}
+
+async function onFinalizarAdocao() {
+    if (props.registro == null) return
+
+    if (!confirm('Tem certeza que deseja finalizar esta adoção? O pet será removido da lista.')) return
+
+    try {
+        await finalizarAdocao(props.registro)
+        emit('finalizado', props.registro)
+        alert('Adoção finalizada com sucesso!')
+    } catch (error) {
+        console.error('Erro ao finalizar a adoção:', error)
+        alert('Não foi possível finalizar a adoção. Tente novamente.')
+    }
+}
 
 
 const props = defineProps<{
@@ -8,6 +29,10 @@ const props = defineProps<{
     image?: { id: number, url: string, ordem: number }[]
     title?: string
     description?: string
+}>()
+
+const emit = defineEmits<{
+    (e: 'finalizado', registro: number): void
 }>()
 
 
@@ -25,6 +50,11 @@ console.log("printando id do pet no card -> ", props.registro)
             <span class="title">{{ title }}</span>
             <p class="description">{{ description }}</p>
         </div>
+
+        <button v-if="isMinhaAdocao()" class="btnFinalizar" @click.stop="onFinalizarAdocao">
+            Finalizar adoção
+        </button>
+
     </div>
 </template>
 
@@ -40,6 +70,34 @@ console.log("printando id do pet no card -> ", props.registro)
     box-shadow: 0 8px 32px rgba(255, 112, 67, 0.15);
     transition: transform 0.2s, box-shadow 0.2s;
     cursor: pointer;
+}
+
+.btnFinalizar {
+    display: block;
+    width: calc(100% - 36px);
+    margin: 0 18px 18px;
+    padding: 12px 20px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(135deg, #ff7043 0%, #ffa05a 100%);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(255, 112, 67, 0.4);
+    transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
+}
+
+.btnFinalizar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 112, 67, 0.55);
+    filter: brightness(1.05);
+}
+
+.btnFinalizar:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(255, 112, 67, 0.4);
 }
 
 .cardDiv:hover {

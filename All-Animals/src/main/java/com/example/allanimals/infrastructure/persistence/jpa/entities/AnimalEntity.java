@@ -1,5 +1,6 @@
 package com.example.allanimals.infrastructure.persistence.jpa.entities;
 
+import com.example.allanimals.domain.model.enums.StatusAnimal;
 import com.example.allanimals.domain.model.enums.TipoAnimal;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -56,6 +57,17 @@ public class AnimalEntity {
     @JoinColumn(name = "tutor_id", nullable = true)
     private TutorEntity tutor;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = true)
+    private StatusAnimal status;
+
+    public StatusAnimal getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusAnimal status) {
+        this.status = status;
+    }
 
     public Long getRegistro() {
 

@@ -4,11 +4,15 @@ import com.example.allanimals.application.dto.AnimalRequestDto;
 import com.example.allanimals.application.dto.AnimalResponseDto;
 import com.example.allanimals.application.mappers.AnimalMappersApp;
 import com.example.allanimals.domain.model.entities.Animal;
+import com.example.allanimals.domain.model.enums.StatusAnimal;
 import com.example.allanimals.infrastructure.persistence.jpa.entities.AnimalEntity;
+import com.example.allanimals.infrastructure.persistence.jpa.entities.AnimalImagemEntity;
 import com.example.allanimals.infrastructure.persistence.jpa.impl.AnimalRepositoryImpl;
 import com.example.allanimals.infrastructure.persistence.jpa.mappers.AnimalMapperInfra;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.nio.file.AccessDeniedException;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -26,6 +30,7 @@ public class AnimalAppService {
         if (dto == null) throw new IllegalArgumentException("Animals information cant be null");
         Animal animal = AnimalMappersApp.toDomain(dto);
         animal.setTutorId(tutorId);
+        animal.setStatusAnimal(StatusAnimal.DISPONÍVEL);
         Long idRetornado = animalRepository.save(animal);
         return idRetornado;
     }
@@ -77,5 +82,13 @@ public class AnimalAppService {
     }
     public AnimalEntity getAnimalForImage(Long id) {
         return animalRepository.getAnimalEntity(id);
+    }
+
+    @Transactional
+    public void finalizarAdocao(Long registro) {
+        AnimalEntity animal = animalRepository.getAnimalEntity(registro);
+
+        animal.setStatus(StatusAnimal.ADOTADO);
+
     }
 }

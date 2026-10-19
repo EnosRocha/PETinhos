@@ -4,6 +4,7 @@ import { useAnimalStore } from '@/store/animalsStore';
 import { useAuthStore } from '@/store/storeAuth';
 import Card from '@/components/Card.vue';
 import { useRouter } from 'vue-router';
+import { StatusAnimal } from '@/types/animal'   // sem "type"
 
 const animalStore = useAnimalStore();
 const router = useRouter();
@@ -20,24 +21,27 @@ const tipos = [
     { value: 'PORCO_DA_INDIA', label: 'Porquinho-da-índia' },
 ]
 
-const filtroAtivo = ref<string | null>(null)
+const filtroTipo = ref<string | null>(null)
 
-const petsFiltrados = computed(() => {
-    if (!filtroAtivo.value) return animalStore.pets
-    return animalStore.pets.filter(p => p.tipoAnimal === filtroAtivo.value)
-})
+const petsFiltrados = computed(() =>
+    animalStore.pets.filter(p =>
+        p.statusAnimal === StatusAnimal.DISPONIVEL &&
+        (!filtroTipo.value || p.tipoAnimal === filtroTipo.value)
+    )
+)
 
 function toggleFiltro(tipo: string) {
-    filtroAtivo.value = filtroAtivo.value === tipo ? null : tipo
+    filtroTipo.value = filtroTipo.value === tipo ? null : tipo
 }
 
 function sair() {
-  auth.logout()
-  router.push('/login')
+    auth.logout()
+    router.push('/login')
 }
 
 onMounted(async () => {
-    await animalStore.fetchPets();
+    await animalStore.fetchPets()
+    animalStore.pets.forEach(p => console.log(p.name, JSON.stringify(p.status), p.status === StatusAnimal.DISPONIVEL))
 })
 </script>
 
@@ -53,10 +57,10 @@ onMounted(async () => {
             <aside class="filtro">
                 <h3>Filtrar por tipo</h3>
                 <button v-for="tipo in tipos" :key="tipo.value" class="filtro-btn"
-                    :class="{ ativo: filtroAtivo === tipo.value }" @click="toggleFiltro(tipo.value)">
+                    :class="{ ativo: filtroTipo === tipo.value }" @click="toggleFiltro(tipo.value)">
                     {{ tipo.label }}
                 </button>
-                <button v-if="filtroAtivo" class="limpar" @click="filtroAtivo = null">
+                <button v-if="filtroTipo" class="limpar" @click="filtroTipo = null">
                     Limpar filtro
                 </button>
             </aside>
@@ -88,9 +92,9 @@ onMounted(async () => {
             </button>
 
             <button class="top-btn" @click="sair">Sair</button>
-            
+
         </div>
-        
+
 
         <div class="backgroundContainer">
             <img src="../assets/images/fundo-patinhas.png" alt="background">
@@ -146,6 +150,7 @@ onMounted(async () => {
     cursor: pointer;
     transition: all 0.2s;
 }
+
 .layout {
     max-width: 1200px;
     margin: 0 auto;

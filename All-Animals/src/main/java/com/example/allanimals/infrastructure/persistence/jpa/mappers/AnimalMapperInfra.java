@@ -2,6 +2,7 @@ package com.example.allanimals.infrastructure.persistence.jpa.mappers;
 
 import com.example.allanimals.domain.model.entities.Animal;
 import com.example.allanimals.domain.model.entities.AnimalImage;
+import com.example.allanimals.domain.model.enums.StatusAnimal;
 import com.example.allanimals.domain.model.objectValue.RegistroAnimal;
 import com.example.allanimals.infrastructure.persistence.jpa.entities.AnimalEntity;
 import com.example.allanimals.infrastructure.persistence.jpa.entities.AnimalImagemEntity;
@@ -35,6 +36,8 @@ public class AnimalMapperInfra {
         animalEntity.setRaca(animal.getRaca());
         animalEntity.setDonoId(animal.getDonoId());
         animalEntity.setIdade(animal.getIdade());
+        animalEntity.setStatus(animal.getStatusAnimal() != null ? animal.getStatusAnimal() : StatusAnimal.DISPONÍVEL);
+
 
 
         return animalEntity;
@@ -62,6 +65,7 @@ public class AnimalMapperInfra {
         animal.setEndereco(dto.getEndereco());
         animal.setDonoId(dto.getDonoId());
         animal.setTutorId(dto.getTutor() != null ? dto.getTutor().getId() : null);
+        animal.setStatusAnimal(dto.getStatus());
 
         return animal;
     }
