@@ -54,6 +54,42 @@ public class AnimalMapperAppTest {
     }
 
 
+    @Test
+    void deveConverterAnimalParaResponseDto() {
+
+        Animal animal = new Animal();
+        animal.setName("Rex");
+        animal.setTipoAnimal(TipoAnimal.CACHORRO);
+        animal.setRaca("Labrador");
+        animal.setPeso(25.5);
+        animal.setCor("Amarelo");
+        animal.setIdade(5);
+        animal.setDonoId(1);
+        animal.setDescricao("Cachorro docil");
+        animal.setEndereco("Rua X");
+
+        AnimalResponseDto dto = AnimalMappersApp.toResponse(animal);
+
+        assertNotNull(dto);
+        assertEquals("Rex", dto.name());
+        assertEquals(TipoAnimal.CACHORRO, dto.tipoAnimal());
+        assertEquals("Labrador", dto.raca());
+        assertEquals(25.5, dto.peso());
+        assertEquals("Amarelo", dto.cor());
+        assertEquals(5, dto.idade());
+        assertEquals("Cachorro docil", dto.descricao());
+        assertEquals("Rua X", dto.endereco());
+    }
+
+    @Test
+    void deveRetornarNullQuandoAnimalForNulo() {
+
+        AnimalResponseDto dto = AnimalMappersApp.toResponse(null);
+
+        assertNull(dto);
+    }
+
+
 
 
 
