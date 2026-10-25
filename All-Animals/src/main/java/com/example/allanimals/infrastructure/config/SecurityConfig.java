@@ -41,6 +41,7 @@ public class SecurityConfig {
                         .requestMatchers("/oauth2/**").permitAll()
                         .requestMatchers(HttpMethod.POST,"/tutor").permitAll()
                         .requestMatchers("/error").permitAll()
+                        .requestMatchers("/ping", "/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
                         .anyRequest().authenticated()
                 ).exceptionHandling(ex -> ex
                         .authenticationEntryPoint((request, response, authException) ->
