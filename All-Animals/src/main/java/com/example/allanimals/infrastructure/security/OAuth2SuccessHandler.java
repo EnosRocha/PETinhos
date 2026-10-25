@@ -4,13 +4,13 @@ package com.example.allanimals.infrastructure.security;
 import com.example.allanimals.application.service.JwtService;
 import com.example.allanimals.domain.model.entities.Tutor;
 import com.example.allanimals.domain.model.objectValue.Email;
-import com.example.allanimals.domain.repositories.TutorRepository;
 import com.example.allanimals.infrastructure.persistence.jpa.entities.TutorEntity;
 import com.example.allanimals.infrastructure.persistence.jpa.impl.TutorRepositoryImpl;
 import com.example.allanimals.infrastructure.persistence.jpa.mappers.TutorMapperInfra;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -24,6 +24,9 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
     private final JwtService jwtService;
     private final TutorRepositoryImpl tutorRepository;
+
+    @Value("${app.frontend-url:http://localhost:5173}")
+    private String frontendUrl;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,
@@ -47,7 +50,6 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         }
 
         String token = jwtService.gerarToken(email);
-        response.sendRedirect("http://localhost:5173/oauth2/callback?token=" + token);
+        response.sendRedirect(frontendUrl + "/oauth2/callback?token=" + token);
     }
 }
-
