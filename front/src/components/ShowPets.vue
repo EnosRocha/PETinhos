@@ -41,7 +41,6 @@ function sair() {
 
 onMounted(async () => {
     await animalStore.fetchPets()
-    animalStore.pets.forEach(p => console.log(p.name, JSON.stringify(p.status), p.status === StatusAnimal.DISPONIVEL))
 })
 </script>
 
