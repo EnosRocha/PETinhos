@@ -36,5 +36,9 @@ jwt:
   secret: ${JWT_SECRET}
   expiration: 86400000
 
+app:
+  frontend-url: ${FRONTEND_URL:http://localhost:5173}
+
 server:
   port: ${PORT:8080}
+  forward-headers-strategy: framework
