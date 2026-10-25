@@ -44,7 +44,8 @@ function onFiles(e: Event) {
 }
 
 function removerImagem(i: number) {
-    URL.revokeObjectURL(previews.value[i])
+    const url = previews.value[i]
+    if (url) URL.revokeObjectURL(url)
     files.value.splice(i, 1)
     previews.value.splice(i, 1)
 }
@@ -55,7 +56,7 @@ async function enviar() {
     enviando.value = true
 
     try {
-        await cadastrarPet(form, files.value)
+        await cadastrarPet({ ...form, donoId: Number(form.donoId) }, files.value)
         router.push('/')
     } catch (e: any) {
         erro.value = e.response?.data?.message || 'Erro ao cadastrar.'

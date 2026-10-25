@@ -44,7 +44,7 @@ async function getNumber() {
         const tutorFound = await buscarTutor(animalFound.tutorId)
         phoneFoundForId.value = tutorFound.phone
 
-        const url = linkWhatsapp(phoneFoundForId.value, pet.value.name)
+        const url = linkWhatsapp(phoneFoundForId.value, pet.value?.name ?? 'pet')
        
         window.open(url, '_blank')
         
