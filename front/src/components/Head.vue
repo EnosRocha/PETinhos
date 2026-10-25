@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-const videos: string[] = [
-    "/src/assets/videos/video1.mp4",
-    "/src/assets/videos/video2.mp4",
-    "/src/assets/videos/video3.mp4"
-]
+import video1 from '@/assets/videos/video1.mp4'
+import video2 from '@/assets/videos/video2.mp4'
+import video3 from '@/assets/videos/video3.mp4'
+
+const videos: string[] = [video1, video2, video3]
 
 const currentIndex = ref(0)
 
