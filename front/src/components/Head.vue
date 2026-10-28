@@ -30,7 +30,7 @@ function nextVideo() {
                 </div>
                 <ul class="navLinks">
                     <li><Router-link to="/">Home</Router-link></li>
-                    <li><Router-link to="/about">Sobre</Router-link></li>
+                    <li><Router-link to="/sobre">Sobre</Router-link></li>
                 </ul>
                 <div class="navAuth">
                     <Router-link to="/login" class="btnLogin">Entrar</Router-link>
