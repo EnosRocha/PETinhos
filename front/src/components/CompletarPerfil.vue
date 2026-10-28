@@ -2,6 +2,7 @@
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { completarMeuPerfil } from '@/http/requests'
+import { vMaska } from 'maska/vue'
 
 const router = useRouter()
 const form = reactive({ phone: '', birthday: '' })
@@ -39,7 +40,7 @@ async function enviar() {
             <div class="input-group">
                 <label for="phone">Telefone</label>
                 <input id="phone" v-model="form.phone" type="tel" placeholder="(84) 99999-9999"
-                    autocomplete="tel" required />
+                    autocomplete="tel" v-maska data-maska="(##) #####-####" required />
             </div>
 
             <div class="input-group">
