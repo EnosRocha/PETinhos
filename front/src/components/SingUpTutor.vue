@@ -2,6 +2,7 @@
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { cadastrarTutor } from "@/http/requests"
+import { vMaska } from 'maska/vue'
 
 const router = useRouter()
 
@@ -31,7 +32,7 @@ async function enviar() {
         await cadastrarTutor({
             name: form.name,
             password: form.password,
-            phone: form.phone,
+            phone: form.phone.replace(/\D/g, ''),
             birthday: form.birthday,
             email: form.email,
         })
@@ -58,7 +59,7 @@ async function enviar() {
             </label>
 
             <label>Telefone
-                <input v-model="form.phone" type="tel" required />
+                <input v-model="form.phone" type="tel" v-maska data-maska="(##) #####-####" required />
             </label>
 
             <label>Data de nascimento
