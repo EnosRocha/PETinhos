@@ -6,13 +6,11 @@ import com.example.allanimals.application.mappers.AnimalMappersApp;
 import com.example.allanimals.domain.model.entities.Animal;
 import com.example.allanimals.domain.model.enums.StatusAnimal;
 import com.example.allanimals.infrastructure.persistence.jpa.entities.AnimalEntity;
-import com.example.allanimals.infrastructure.persistence.jpa.entities.AnimalImagemEntity;
 import com.example.allanimals.infrastructure.persistence.jpa.impl.AnimalRepositoryImpl;
-import com.example.allanimals.infrastructure.persistence.jpa.mappers.AnimalMapperInfra;
 import jakarta.transaction.Transactional;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import java.nio.file.AccessDeniedException;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -41,13 +39,14 @@ public class AnimalAppService {
 
     }
 
+    @Cacheable("animalswithoudid")
     public List<AnimalResponseDto> getAllAnimals() {
         List<Animal> animals = animalRepository.getAllAnimals();
         List<AnimalResponseDto> response = animals.stream().map(animal -> AnimalMappersApp.toResponse(animal)).collect(Collectors.toUnmodifiableList());
         return response;
     }
 
-
+    @Cacheable("animals")
     public List<AnimalResponseDto> getAllAnimals(UUID id) {
 
         System.out.println("Tutor solicitado: " + id);
@@ -75,6 +74,7 @@ public class AnimalAppService {
     }
 
 
+    @Cacheable(value = "animal", key = "#id")
     public AnimalResponseDto getAnimal(Long id){
        Animal animal = animalRepository.getAnimal(id);
        AnimalResponseDto animalDto = AnimalMappersApp.toResponse(animal);
