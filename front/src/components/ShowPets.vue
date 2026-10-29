@@ -158,12 +158,6 @@ onMounted(async () => {
     align-items: flex-start;
 }
 
-.layout::after {
-    content: '';
-    width: 200px;      
-    flex-shrink: 0;
-}
-
 .filtro {
     width: 200px;
     flex-shrink: 0;
@@ -314,9 +308,5 @@ onMounted(async () => {
     .grid {
         gap: 18px;
     }
-
-    .layout::after {
-    display: none;
-}
 }
 </style>
