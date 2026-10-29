@@ -30,7 +30,6 @@ function loginGoogle() {
 <template>
     <div class="login-div">
 
-        <!-- Vídeo de fundo (fora do form) -->
         <div class="videoContainer">
             <video :src="video4" autoplay muted loop playsinline />
             <div class="overlay" />
