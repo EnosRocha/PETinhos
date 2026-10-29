@@ -16,7 +16,8 @@ const router = useRouter()
             <section class="card">
                 <h2>O que é o PETinhos?</h2>
                 <p>
-                    O PETinhos é uma plataforma de adoção de animais que conecta tutores responsáveis a pessoas
+                    O PETinhos é uma plataforma de adoção de animais, sem fins lucrativos e iniciado através de um
+                    projeto universitário, que conecta tutores responsáveis a pessoas
                     que desejam dar um lar para um pet. Aqui você encontra cães, gatos, pássaros e muito mais
                     esperando por uma família.
                 </p>
@@ -68,7 +69,7 @@ const router = useRouter()
             </section>
 
             <section class="card missao">
-                <h2>Nossa missão</h2>
+                <h2>Nossa visão</h2>
                 <p>
                     Acreditamos que todo animal merece um lar seguro e cheio de carinho.
                     O PETinhos nasceu para tornar o processo de adoção mais simples, humano
