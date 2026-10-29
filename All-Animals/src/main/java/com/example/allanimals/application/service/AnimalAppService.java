@@ -8,6 +8,7 @@ import com.example.allanimals.domain.model.enums.StatusAnimal;
 import com.example.allanimals.infrastructure.persistence.jpa.entities.AnimalEntity;
 import com.example.allanimals.infrastructure.persistence.jpa.impl.AnimalRepositoryImpl;
 import jakarta.transaction.Transactional;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,7 @@ public class AnimalAppService {
         this.animalRepository = animalRepository;
     }
 
+    @CacheEvict(value = "animals", allEntries = true)
     public Long cadastrarAnimal(AnimalRequestDto dto, UUID tutorId) {
         if (dto == null) throw new IllegalArgumentException("Animals information cant be null");
         Animal animal = AnimalMappersApp.toDomain(dto);
@@ -33,13 +35,14 @@ public class AnimalAppService {
         return idRetornado;
     }
 
+    @CacheEvict(value = "animals", allEntries = true)
     public void deletarAnimal(Long registro) {
         if (registro == null) throw new IllegalArgumentException("Animals information cant be null");
         animalRepository.delete(registro);
 
     }
 
-    @Cacheable("animalswithoudid")
+    @Cacheable("animals")
     public List<AnimalResponseDto> getAllAnimals() {
         List<Animal> animals = animalRepository.getAllAnimals();
         List<AnimalResponseDto> response = animals.stream().map(animal -> AnimalMappersApp.toResponse(animal)).collect(Collectors.toUnmodifiableList());
