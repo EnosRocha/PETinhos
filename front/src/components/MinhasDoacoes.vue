@@ -231,6 +231,9 @@ onMounted(async () => {
 
 .content {
     flex: 1;
+    background-color: white;
+    border-radius: 10px;
+    min-height: 70vh; 
 }
 
 .page-header {
