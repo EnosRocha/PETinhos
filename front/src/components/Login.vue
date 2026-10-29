@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import { useAuthStore } from '@/store/storeAuth'
 import { useRouter } from 'vue-router';
 import { login } from '@/http/requests'
+import video4 from '@/assets/videos/video4.mp4'
 
 const email = ref('')
 const password = ref('')
@@ -28,7 +29,15 @@ function loginGoogle() {
 
 <template>
     <div class="login-div">
+
+        <!-- Vídeo de fundo (fora do form) -->
+        <div class="videoContainer">
+            <video :src="video4" autoplay muted loop playsinline />
+            <div class="overlay" />
+        </div>
+
         <form class="card" @submit.prevent="onSubmit">
+
             <div class="brand">🐾 PETinhos</div>
 
             <div class="heading">
@@ -48,7 +57,6 @@ function loginGoogle() {
                     autocomplete="current-password" required />
             </div>
 
-
             <button type="button" class="btnGoogle" @click="loginGoogle">Entrar com Google</button>
 
             <a class="forgot" href="#">Esqueceu a senha?</a>
@@ -57,7 +65,7 @@ function loginGoogle() {
 
             <p class="signup">
                 Não tem conta?
-                <button type="button" @click="router.push('/cadastrarTutor')" class="forgot">Cadastre-se</button>
+                <button type="button" class="btnLink" @click="router.push('/cadastrarTutor')">Cadastre-se</button>
             </p>
         </form>
     </div>
@@ -73,6 +81,8 @@ function loginGoogle() {
 }
 
 .login-div {
+    position: relative;
+    overflow: hidden;
     width: 100%;
     min-height: 100vh;
     padding: 24px;
@@ -80,12 +90,29 @@ function loginGoogle() {
     justify-content: center;
     align-items: center;
     font-family: 'Poppins', sans-serif;
-    background:
-        radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 55%),
-        linear-gradient(135deg, #ff7043 0%, #ffa05a 45%, #ffcc70 100%);
+}
+
+.videoContainer {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.videoContainer video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6));
 }
 
 .card {
+    position: relative;
+    z-index: 1;
     width: 100%;
     max-width: 420px;
     display: flex;
@@ -95,6 +122,8 @@ function loginGoogle() {
     background: #fff;
     border-radius: 24px;
     box-shadow: 0 20px 60px rgba(244, 81, 30, 0.35);
+    animation: slideUp 0.6s ease-out both;
+
 }
 
 .brand {
@@ -191,34 +220,6 @@ function loginGoogle() {
     transform: translateY(0);
 }
 
-.signup {
-    text-align: center;
-    font-size: 0.9rem;
-    color: rgba(26, 26, 26, 0.6);
-}
-
-.signup a {
-    font-weight: 600;
-    color: #ff7043;
-    text-decoration: none;
-    transition: color 0.2s;
-}
-
-.signup a:hover {
-    color: #f4511e;
-}
-
-@media (max-width: 480px) {
-    .card {
-        padding: 32px 24px;
-    }
-
-    .heading h1 {
-        font-size: 1.6rem;
-    }
-}
-
-
 .btnGoogle {
     display: flex;
     align-items: center;
@@ -240,5 +241,54 @@ function loginGoogle() {
     border-color: #d0ccc9;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
     transform: translateY(-2px);
+}
+
+.signup {
+    text-align: center;
+    font-size: 0.9rem;
+    color: rgba(26, 26, 26, 0.6);
+}
+
+.btnLink {
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: 600;
+    color: #ff7043;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.btnLink:hover {
+    color: #f4511e;
+}
+
+@media (max-width: 480px) {
+    .card {
+        padding: 32px 24px;
+    }
+
+    .heading h1 {
+        font-size: 1.6rem;
+    }
+}
+
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .card {
+        animation: none;
+    }
 }
 </style>
