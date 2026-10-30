@@ -1,28 +1,26 @@
 <script lang="ts" setup>
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAnimalStore } from '@/store/animalsStore'
-import { ref } from 'vue'
 import { buscarPet, buscarTutor } from '@/http/requests'
 
 const route = useRoute()
 const router = useRouter()
 const animalStore = useAnimalStore()
 const imagemAtual = ref(0)
+const mapaAberto = ref(false)
 
 const phoneFoundForId = ref('')
 const erroBuscaTelefone = ref('')
 
-
 function linkWhatsapp(telefone: string, nomePet: string): string {
-  let numero = telefone.replace(/\D/g, '')
-  if (numero.length <= 11) numero = '55' + numero
+    let numero = telefone.replace(/\D/g, '')
+    if (numero.length <= 11) numero = '55' + numero
 
-  const mensagem = `Olá! Vi o ${nomePet} no PETinhos e tenho interesse em adotar. Ainda está disponível?`
+    const mensagem = `Olá! Vi o ${nomePet} no PETinhos e tenho interesse em adotar. Ainda está disponível?`
 
-  return `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`
+    return `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`
 }
-
 
 async function getNumber() {
     erroBuscaTelefone.value = ''
@@ -45,9 +43,9 @@ async function getNumber() {
         phoneFoundForId.value = tutorFound.phone
 
         const url = linkWhatsapp(phoneFoundForId.value, pet.value?.name ?? 'pet')
-       
+
         window.open(url, '_blank')
-        
+
     } catch (error) {
         console.error('Erro ao buscar o telefone do tutor:', error)
         erroBuscaTelefone.value = 'Não foi possível buscar o telefone. Tente novamente.'
@@ -70,18 +68,23 @@ function anterior() {
     }
 }
 
+function onEsc(e: KeyboardEvent) {
+    if (e.key === 'Escape') mapaAberto.value = false
+}
+
 onMounted(async () => {
+    window.addEventListener('keydown', onEsc)
     if (animalStore.pets.length === 0) {
         await animalStore.fetchPets()
     }
 })
 
+onUnmounted(() => {
+    window.removeEventListener('keydown', onEsc)
+})
+
 const pet = computed(() =>
     animalStore.pets.find(p => p.registro === Number(route.params.id))
-
-)
-
-console.log("printando o valor do pet id dentro do viewPet - >", pet.value?.registro
 )
 </script>
 
@@ -134,20 +137,38 @@ console.log("printando o valor do pet id dentro do viewPet - >", pet.value?.regi
                             <span class="label">Endereço</span>
                             <span>{{ pet.endereco }}</span>
                         </div>
+
+                        <div class="mapa-wrap">
+                            <button class="mapaButton" @click="mapaAberto = true">
+                                📍 Mostrar no mapa
+                            </button>
+                        </div>
                     </div>
 
                     <button class="adotar" @click="getNumber">Quero adotar 🐾</button>
-
                 </div>
             </div>
 
         </div>
+
+        <Teleport to="body">
+            <div v-if="mapaAberto" class="overlay" @click.self="mapaAberto = false">
+                <div class="modal">
+                    <header class="modal-header">
+                        <h3>📍 {{ pet?.name }}</h3>
+                        <button class="fechar" @click="mapaAberto = false">✕</button>
+                    </header>
+                    <p class="modal-endereco">{{ pet?.endereco }}</p>
+                    <iframe class="mapa-frame" loading="lazy"
+                        :src="`https://maps.google.com/maps?q=${encodeURIComponent(pet?.endereco ?? '')}&output=embed`">
+                    </iframe>
+                </div>
+            </div>
+        </Teleport>
+
         <div class="backgroundContainer">
             <img src="../assets/images/viewPetBackGround.jpeg" alt="background">
         </div>
-
-        <!-- <input type="file" multiple @change="handleFiles" accept="image/*" /> -->
-
 
     </div>
 </template>
@@ -157,7 +178,6 @@ console.log("printando o valor do pet id dentro do viewPet - >", pet.value?.regi
 
 * {
     font-family: 'Poppins', sans-serif;
-
 }
 
 .viewPetMainDiv {
@@ -166,7 +186,6 @@ console.log("printando o valor do pet id dentro do viewPet - >", pet.value?.regi
     background: transparent;
     padding: 48px 32px;
     position: relative;
-
 }
 
 .loading {
@@ -184,7 +203,6 @@ console.log("printando o valor do pet id dentro do viewPet - >", pet.value?.regi
     animation: bounce 1s infinite alternate;
 }
 
-
 .backgroundContainer {
     height: 100vh;
     width: 100vw;
@@ -192,7 +210,6 @@ console.log("printando o valor do pet id dentro do viewPet - >", pet.value?.regi
     top: 0;
     left: 0;
     z-index: -1;
-
 }
 
 .backgroundContainer img {
@@ -201,7 +218,6 @@ console.log("printando o valor do pet id dentro do viewPet - >", pet.value?.regi
     object-fit: cover;
     object-position: center;
     opacity: 0.15;
-
 }
 
 @keyframes bounce {
@@ -384,6 +400,95 @@ console.log("printando o valor do pet id dentro do viewPet - >", pet.value?.regi
     opacity: 0.8;
 }
 
+/* ===== Mapa / Modal ===== */
+.mapa-wrap {
+    grid-column: 1 / -1;
+}
+
+.mapaButton {
+    padding: 10px 16px;
+    background-color: #ff7043;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.mapaButton:hover {
+    opacity: 0.8;
+}
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    padding: 16px;
+}
+
+.modal {
+    background: #fff;
+    border-radius: 20px;
+    padding: 20px;
+    width: 100%;
+    max-width: 700px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+    animation: aparecer 0.2s ease;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #1a1a1a;
+}
+
+.fechar {
+    background: #ffe3d8;
+    color: #a12600;
+    border: none;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.modal-endereco {
+    margin: 6px 0 12px;
+    font-size: 0.9rem;
+    color: rgba(26, 26, 26, 0.6);
+}
+
+.mapa-frame {
+    width: 100%;
+    height: 400px;
+    border: 0;
+    border-radius: 12px;
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
 @media (max-width: 700px) {
     .card {
         flex-direction: column;
@@ -392,6 +497,10 @@ console.log("printando o valor do pet id dentro do viewPet - >", pet.value?.regi
     .image-wrap {
         width: 100%;
         height: 240px;
+    }
+
+    .mapa-frame {
+        height: 300px;
     }
 }
 </style>
