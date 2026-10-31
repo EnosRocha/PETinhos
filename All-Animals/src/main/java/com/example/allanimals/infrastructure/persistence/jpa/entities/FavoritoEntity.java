@@ -1,24 +1,22 @@
 package com.example.allanimals.infrastructure.persistence.jpa.entities;
 
-import com.example.allanimals.domain.model.entities.Animal;
-import com.example.allanimals.domain.model.entities.Tutor;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "favorito",
         uniqueConstraints = @UniqueConstraint(columnNames = {"usuario_id", "animal_id"}))
-public class Favorito {
+public class FavoritoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "usuario_id")
-    private Tutor usuario;
+    private TutorEntity usuario;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "animal_id")
-    private Animal animal;
+    private AnimalEntity animal;
 
     public Long getId() {
         return id;
@@ -28,19 +26,19 @@ public class Favorito {
         this.id = id;
     }
 
-    public Tutor getUsuario() {
+    public TutorEntity getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(Tutor usuario) {
+    public void setUsuario(TutorEntity usuario) {
         this.usuario = usuario;
     }
 
-    public Animal getAnimal() {
+    public AnimalEntity getAnimal() {
         return animal;
     }
 
-    public void setAnimal(Animal animal) {
+    public void setAnimal(AnimalEntity animal) {
         this.animal = animal;
     }
 }
