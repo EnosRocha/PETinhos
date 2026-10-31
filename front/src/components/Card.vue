@@ -2,6 +2,10 @@
 import { useRouter } from 'vue-router'
 const router = useRouter()
 import { finalizarAdocao } from '@/http/requests'
+import { ref } from 'vue';
+
+
+const favorito = ref(false)
 
 
 function isMinhaAdocao() {
@@ -45,6 +49,9 @@ console.log("printando id do pet no card -> ", props.registro)
     <div class="cardDiv" @click="router.push(`/viewPet/${props.registro}`)">
         <div class="cardImage">
             <img :src="image?.[0]?.url" :alt="title" />
+            <button class="estrela" :class="{ ativa: favorito }" @click.stop="favorito = !favorito" title="Favoritar">
+                ★
+            </button>
         </div>
         <div class="info">
             <span class="title">{{ title }}</span>
@@ -70,6 +77,32 @@ console.log("printando id do pet no card -> ", props.registro)
     box-shadow: 0 8px 32px rgba(255, 112, 67, 0.15);
     transition: transform 0.2s, box-shadow 0.2s;
     cursor: pointer;
+}
+
+.estrela {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 5;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    color: #bbb;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s, color 0.2s;
+}
+
+.estrela:hover {
+    transform: scale(1.15);
+}
+
+.estrela.ativa {
+    color: #ffc107;
 }
 
 .btnFinalizar {
