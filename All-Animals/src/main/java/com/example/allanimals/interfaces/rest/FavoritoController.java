@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -37,5 +38,10 @@ public class FavoritoController {
     public ResponseEntity<Set<Long>> listar(@PathVariable UUID tutorId) {
         Set<Long> favoritos = favoritoAppService.listar(tutorId);
         return ResponseEntity.ok(favoritos);
+    }
+
+    @GetMapping("/{tutorId}/animais")
+    public ResponseEntity<List<?>> listarAnimais(@PathVariable UUID tutorId) {
+        return ResponseEntity.ok(favoritoAppService.listarAnimais(tutorId));
     }
 }

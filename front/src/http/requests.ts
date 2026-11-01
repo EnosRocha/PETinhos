@@ -134,9 +134,9 @@ export async function desfavoritar(tutorId: string, animalId: number) {
     })
 }
 
-export async function listarFavoritos(tutorId: string): Promise<number[]> {
+export async function listarAnimaisFavoritos(tutorId: string) {
     const auth = useAuthStore()
-    const response = await axios.get<number[]>(`${API_URL}/favoritos/${tutorId}`, {
+    const response = await axios.get(`${API_URL}/favoritos/${tutorId}/animais`, {
         headers: { Authorization: `Bearer ${auth.token}` }
     })
     return response.data

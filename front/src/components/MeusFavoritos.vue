@@ -4,7 +4,7 @@ import { useAuthStore } from '@/store/storeAuth';
 import Card from '@/components/Card.vue';
 import { useRouter } from 'vue-router';
 import type { Animal } from '@/types/animal';
-import { buscarMeuPerfil, listarFavoritos, buscarPet } from "@/http/requests"
+import { buscarMeuPerfil, listarAnimaisFavoritos, buscarPet } from "@/http/requests"
 
 const router = useRouter();
 const auth = useAuthStore()
@@ -39,9 +39,7 @@ function toggleFiltro(tipo: string) {
 
 onMounted(async () => {
     const tutor = await buscarMeuPerfil()
-    const ids = await listarFavoritos(tutor.id)
-    const animais = await Promise.all(ids.map(id => buscarPet(id)))
-    animaisFavoritos.value = animais
+    animaisFavoritos.value = await listarAnimaisFavoritos(tutor.id)
 })
 
 

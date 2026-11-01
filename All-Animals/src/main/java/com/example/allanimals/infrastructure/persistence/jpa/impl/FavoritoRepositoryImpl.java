@@ -54,7 +54,7 @@ public class FavoritoRepositoryImpl implements FavoritoRepository {
     }
 
     @Override
-    public List<UUID> listarAnimalIdsPorUsuario(UUID usuarioId) {
+    public List<Long> listarAnimalIdsPorUsuario(UUID usuarioId) {
         return List.of();
     }
 

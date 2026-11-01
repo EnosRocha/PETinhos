@@ -38,4 +38,5 @@ public class FavoritoService {
         Favorito favorito = favoritoRepository.findById(tutorId);
         return favorito == null ? Set.of() : favorito.getAnimalId();
     }
+
 }

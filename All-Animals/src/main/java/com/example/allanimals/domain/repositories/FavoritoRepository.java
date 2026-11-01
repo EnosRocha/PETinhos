@@ -10,6 +10,6 @@ public interface FavoritoRepository {
     void salvar(Favorito favorito);
     void remover(UUID usuarioId, Long animalId);
     boolean existe(UUID usuarioId, Long animalId);
-    List<UUID> listarAnimalIdsPorUsuario(UUID usuarioId);
+    List<Long> listarAnimalIdsPorUsuario(UUID usuarioId);
     Favorito findById(UUID userId);
 }
