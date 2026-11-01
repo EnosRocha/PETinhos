@@ -12,6 +12,7 @@ import SingUpTutor from '@/components/SingUpTutor.vue'
 import OAuth2Callback from '@/components/OAuth2Callback.vue'
 import CompletarPerfil from '@/components/CompletarPerfil.vue'
 import MinhasDoacoes from '@/components/MinhasDoacoes.vue'
+import Favoritos from '@/components/MeusFavoritos.vue'
 import Sobre from '@/components/Sobre.vue'
 
 const routes = [
@@ -26,7 +27,8 @@ const routes = [
   { path: '/adotar', component: AdotarPet, meta: { requiresAuth: true } },
   { path: '/adotarOuCadastrar', component: AdotarOuCadastrar, meta: { requiresAuth: true } },
   { path: '/minhasDoacoes', component: MinhasDoacoes, meta: { requiresAuth: true } },
-  { path: '/sobre', component: Sobre, meta: { requiresAuth: false } }
+  { path: '/sobre', component: Sobre, meta: { requiresAuth: false } },
+  { path: '/favoritos', component: Favoritos, meta: { requiresAuth: true } }
 ]
 
 export const router = createRouter({

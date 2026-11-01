@@ -89,6 +89,10 @@ onMounted(async () => {
             <button class="top-btn" @click="router.push('/minhasDoacoes')">
                 Minhas doações
             </button>
+            
+            <button class="top-btn" @click="router.push('/favoritos')">
+                Meus favoritos
+            </button>
 
             <button class="top-btn" @click="sair">Sair</button>
 
@@ -221,7 +225,7 @@ onMounted(async () => {
     background-color: white;
     padding: 10px;
     border-radius: 10px;
-     min-height: 70vh; 
+    min-height: 70vh;
 }
 
 .page-header {

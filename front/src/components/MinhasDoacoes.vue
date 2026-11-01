@@ -104,6 +104,11 @@ onMounted(async () => {
             <button class="top-btn" @click="router.push('/showPets')">
                 Ver todos os pets
             </button>
+
+            <button class="top-btn" @click="router.push('/favoritos')">
+                Meus favoritos
+            </button>
+            
             <button class="top-btn" @click="sair">Sair</button>
 
         </div>
@@ -233,7 +238,7 @@ onMounted(async () => {
     flex: 1;
     background-color: white;
     border-radius: 10px;
-    min-height: 70vh; 
+    min-height: 70vh;
 }
 
 .page-header {

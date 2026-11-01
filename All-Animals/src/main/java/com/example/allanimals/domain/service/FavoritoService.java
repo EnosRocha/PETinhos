@@ -4,11 +4,13 @@ import com.example.allanimals.domain.model.entities.Favorito;
 import com.example.allanimals.domain.repositories.AnimalRepository;
 import com.example.allanimals.domain.repositories.FavoritoRepository;
 import com.example.allanimals.domain.repositories.TutorRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+@Service
 public class FavoritoService {
 
     private final FavoritoRepository favoritoRepository;
@@ -22,27 +24,14 @@ public class FavoritoService {
     }
 
     public void atribuirAnimalFavoritoAoTutor(UUID tutorId, Long petId) {
-        Favorito favorito = favoritoRepository.findById(tutorId);
-
-        if (favorito == null) {
-            favorito = new Favorito();
-            favorito.setUsuarioId(tutorId);
-            favorito.setAnimalId(new HashSet<>());
-        }
-
-        favorito.getAnimalId().add(petId);
+        Favorito favorito = new Favorito();
+        favorito.setUsuarioId(tutorId);
+        favorito.setAnimalId(new HashSet<>(Set.of(petId)));
         favoritoRepository.salvar(favorito);
     }
 
     public void deletarAnimalDosFavoritos(UUID tutorId, Long petId) {
-        Favorito favorito = favoritoRepository.findById(tutorId);
-
-        if (favorito == null || !favorito.getAnimalId().contains(petId)) {
-            throw new RuntimeException("Pet não está nos favoritos!");
-        }
-
-        favorito.getAnimalId().remove(petId);
-        favoritoRepository.salvar(favorito);
+        favoritoRepository.remover(tutorId, petId);
     }
 
     public Set<Long> listarIds(UUID tutorId) {

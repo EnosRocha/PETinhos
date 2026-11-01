@@ -118,3 +118,26 @@ export async function finalizarAdocao(animalId: number) {
     })
     return response.data
 }
+
+export async function favoritar(tutorId: string, animalId: number) {
+    const auth = useAuthStore()
+    await axios.post(`${API_URL}/favoritos`, 
+        { tutorid: tutorId, animalId },
+        { headers: { Authorization: `Bearer ${auth.token}` } }
+    )
+}
+
+export async function desfavoritar(tutorId: string, animalId: number) {
+    const auth = useAuthStore()
+    await axios.delete(`${API_URL}/favoritos/${tutorId}/${animalId}`, {
+        headers: { Authorization: `Bearer ${auth.token}` }
+    })
+}
+
+export async function listarFavoritos(tutorId: string): Promise<number[]> {
+    const auth = useAuthStore()
+    const response = await axios.get<number[]>(`${API_URL}/favoritos/${tutorId}`, {
+        headers: { Authorization: `Bearer ${auth.token}` }
+    })
+    return response.data
+}

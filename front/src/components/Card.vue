@@ -1,11 +1,14 @@
 <script lang="ts" setup>
 import { useRouter } from 'vue-router'
 const router = useRouter()
-import { finalizarAdocao } from '@/http/requests'
+import { favoritar, finalizarAdocao } from '@/http/requests'
 import { ref } from 'vue';
+import { buscarMeuPerfil } from '@/http/requests'
+import { desfavoritar } from '@/http/requests'
 
 
-const favorito = ref(false)
+
+
 
 
 function isMinhaAdocao() {
@@ -33,12 +36,36 @@ const props = defineProps<{
     image?: { id: number, url: string, ordem: number }[]
     title?: string
     description?: string
+    favoritado?: boolean
+    emFavoritos?: boolean
 }>()
 
 const emit = defineEmits<{
     (e: 'finalizado', registro: number): void
+    (e: 'desfavoritado', registro: number): void
 }>()
 
+const favorito = ref(props.favoritado ?? false)
+
+async function favoritarFunction() {
+    if (!props.registro) return
+
+    if (props.emFavoritos || favorito.value) {
+        const perfil = await buscarMeuPerfil()
+        await desfavoritar(perfil.id, props.registro)
+        favorito.value = false
+        emit('desfavoritado', props.registro)
+        return
+    }
+
+    try {
+        const perfil = await buscarMeuPerfil()
+        await favoritar(perfil.id, props.registro)
+        favorito.value = true
+    } catch (e: any) {
+        if (e.response?.status === 409) favorito.value = true
+    }
+}
 
 
 console.log("printando id do pet no card -> ", props.registro)
@@ -49,8 +76,8 @@ console.log("printando id do pet no card -> ", props.registro)
     <div class="cardDiv" @click="router.push(`/viewPet/${props.registro}`)">
         <div class="cardImage">
             <img :src="image?.[0]?.url" :alt="title" />
-            <button class="estrela" :class="{ ativa: favorito }" @click.stop="favorito = !favorito" title="Favoritar">
-                ★
+            <button class="estrela" :class="{ ativa: favorito }" @click.stop="favoritarFunction()" title="Favoritar">
+                ♡
             </button>
         </div>
         <div class="info">
@@ -102,7 +129,7 @@ console.log("printando id do pet no card -> ", props.registro)
 }
 
 .estrela.ativa {
-    color: #ffc107;
+    color: #ff0000;
 }
 
 .btnFinalizar {
