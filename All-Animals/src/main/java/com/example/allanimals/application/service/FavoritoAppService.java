@@ -4,6 +4,8 @@ import com.example.allanimals.domain.exceptions.FavoritoException;
 import com.example.allanimals.domain.repositories.FavoritoRepository;
 import com.example.allanimals.domain.service.FavoritoService;
 import jakarta.transaction.Transactional;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -29,7 +31,6 @@ public class FavoritoAppService {
         favoritoService.atribuirAnimalFavoritoAoTutor(tutorId, petId);
 
 
-
     }
 
     @Transactional
@@ -38,6 +39,7 @@ public class FavoritoAppService {
     }
 
     @Transactional
+    @Cacheable(value = "favoritos", key = "#tutorId")
     public Set<Long> listar(UUID tutorId) {
         return favoritoService.listarIds(tutorId);
     }
