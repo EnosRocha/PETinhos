@@ -23,6 +23,7 @@ public class FavoritoAppService {
     }
 
     @Transactional
+    @CacheEvict(value = "favoritos", key = "#tutorId")
     public void favoritar(UUID tutorId, Long petId) {
         boolean exists = favoritoRepository.existe(tutorId, petId);
 
@@ -34,6 +35,7 @@ public class FavoritoAppService {
     }
 
     @Transactional
+    @CacheEvict(value = "favoritos", key = "#tutorId")
     public void desfavoritar(UUID tutorId, Long petId) {
         favoritoService.deletarAnimalDosFavoritos(tutorId, petId);
     }
