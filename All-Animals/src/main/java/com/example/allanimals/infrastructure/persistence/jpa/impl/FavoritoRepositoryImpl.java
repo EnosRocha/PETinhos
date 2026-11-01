@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Repository
 public class FavoritoRepositoryImpl implements FavoritoRepository {
@@ -55,7 +56,10 @@ public class FavoritoRepositoryImpl implements FavoritoRepository {
 
     @Override
     public List<Long> listarAnimalIdsPorUsuario(UUID usuarioId) {
-        return List.of();
+        return favoritoInfraRepository.findByUsuarioId(usuarioId)
+                .stream()
+                .map(f -> f.getAnimal().getRegistro())
+                .collect(Collectors.toList());
     }
 
     @Override

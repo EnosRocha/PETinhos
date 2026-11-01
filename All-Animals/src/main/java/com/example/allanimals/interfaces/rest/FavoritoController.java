@@ -2,6 +2,7 @@ package com.example.allanimals.interfaces.rest;
 
 import com.example.allanimals.application.dto.FavoritoRequestDto;
 import com.example.allanimals.application.service.FavoritoAppService;
+import com.example.allanimals.domain.model.entities.Animal;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +42,7 @@ public class FavoritoController {
     }
 
     @GetMapping("/{tutorId}/animais")
-    public ResponseEntity<List<?>> listarAnimais(@PathVariable UUID tutorId) {
+    public ResponseEntity<List<Animal>> listarAnimais(@PathVariable UUID tutorId) {
         return ResponseEntity.ok(favoritoAppService.listarAnimais(tutorId));
     }
 }

@@ -1,5 +1,6 @@
 package com.example.allanimals.application.service;
 
+import com.example.allanimals.application.dto.FavoritoResponseDto;
 import com.example.allanimals.domain.exceptions.FavoritoException;
 import com.example.allanimals.domain.model.entities.Animal;
 import com.example.allanimals.domain.repositories.AnimalRepository;
@@ -55,11 +56,11 @@ public class FavoritoAppService {
     }
 
     @Transactional
-    @Cacheable(value = "favoritos", key = "#tutorId")
-    public List<AnimalEntity> listarAnimais(UUID tutorId) {
+    @Cacheable(value = "favoritos-animais", key = "#tutorId")
+    public List<Animal> listarAnimais(UUID tutorId) {
         List<Long> ids = favoritoRepository.listarAnimalIdsPorUsuario(tutorId);
-        return ids.stream().map(id ->
-                AnimalMapperInfra.toEntity(animalRepository.getAnimal(id))
-        ).collect(Collectors.toList());
+        return ids.stream()
+                .map(id -> animalRepository.getAnimal(id))
+                .collect(Collectors.toList());
     }
 }
