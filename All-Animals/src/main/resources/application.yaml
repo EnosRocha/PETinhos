@@ -38,6 +38,14 @@ jwt:
 
 app:
   frontend-url: ${FRONTEND_URL:http://localhost:5173}
+  mail:
+    from: ${MAIL_FROM:no-reply@petinhos.app}
+    from-name: ${MAIL_FROM_NAME:PETinhos}
+    brevo:
+      api-key: ${BREVO_API_KEY:}
+  password-reset:
+    ttl-minutes: ${PASSWORD_RESET_TTL_MINUTES:30}
+    max-requests-per-hour: ${PASSWORD_RESET_MAX_REQUESTS_PER_HOUR:3}
 
 server:
   port: ${PORT:8080}
