@@ -141,3 +141,18 @@ export async function listarAnimaisFavoritos(tutorId: string) {
     })
     return response.data
 }
+
+export async function solicitarRecuperacaoSenha(email: string) {
+    const response = await axios.post(`${API_URL}/auth/password/forgot`, { email })
+    return response.data
+}
+
+export async function validarTokenRecuperacaoSenha(token: string): Promise<{ valid: boolean }> {
+    const response = await axios.get(`${API_URL}/auth/password/validate`, { params: { token } })
+    return response.data
+}
+
+export async function redefinirSenha(token: string, newPassword: string, confirmPassword: string) {
+    const response = await axios.post(`${API_URL}/auth/password/reset`, { token, newPassword, confirmPassword })
+    return response.data
+}
