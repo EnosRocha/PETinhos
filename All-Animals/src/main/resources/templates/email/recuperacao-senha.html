@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title th:text="${titulo}">PETinhos</title>
+</head>
+<body style="margin:0;padding:0;background-color:#f6f1ed;font-family:'Poppins',Arial,Helvetica,sans-serif;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f6f1ed;padding:32px 16px;">
+    <tr>
+        <td align="center">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;background-color:#ffffff;border-radius:24px;box-shadow:0 20px 60px rgba(244,81,30,0.18);overflow:hidden;">
+                <tr>
+                    <td style="height:8px;background:linear-gradient(135deg,#ff7043 0%,#ffa05a 45%,#ffcc70 100%);font-size:0;line-height:0;">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td style="padding:36px 36px 0 36px;">
+                        <div style="font-size:20px;font-weight:800;letter-spacing:1px;color:#ff7043;">PETinhos</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding:20px 36px 0 36px;">
+                        <h1 style="margin:0 0 14px 0;font-size:24px;line-height:1.25;font-weight:800;color:#1a1a1a;" th:text="${titulo}">Titulo</h1>
+                        <p style="margin:0 0 10px 0;font-size:15px;line-height:1.6;color:rgba(26,26,26,0.72);" th:text="'Ol\u00e1, ' + ${nome} + '!'">Ola</p>
+                        <p style="margin:0;font-size:15px;line-height:1.6;color:rgba(26,26,26,0.72);" th:text="${mensagem}">Mensagem</p>
+                    </td>
+                </tr>
+                <tr th:if="${link != null}">
+                    <td align="center" style="padding:30px 36px;">
+                        <a th:href="${link}" target="_blank" style="display:inline-block;padding:16px 36px;font-size:16px;font-weight:600;color:#ffffff;background-color:#ff7043;border-radius:50px;text-decoration:none;" th:text="${textoBotao}">Criar nova senha</a>
+                    </td>
+                </tr>
+                <tr th:if="${prazoMinutos != null}">
+                    <td style="padding:0 36px 6px 36px;">
+                        <p style="margin:0;font-size:13px;line-height:1.5;color:rgba(26,26,26,0.55);" th:text="'Este link expira em ' + ${prazoMinutos} + ' minutos e s\u00f3 pode ser usado uma vez.'">Expira</p>
+                    </td>
+                </tr>
+                <tr th:if="${link != null}">
+                    <td style="padding:10px 36px 0 36px;">
+                        <p style="margin:0 0 6px 0;font-size:12px;line-height:1.5;color:rgba(26,26,26,0.45);">Se o bot&atilde;o n&atilde;o funcionar, copie o endere&ccedil;o abaixo no navegador:</p>
+                        <p style="margin:0;font-size:12px;line-height:1.5;color:#f4511e;word-break:break-all;" th:text="${link}">link</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding:26px 36px 0 36px;">
+                        <p style="margin:0;padding:12px 16px;font-size:13px;line-height:1.55;color:#a12600;background-color:#ffe3d8;border-radius:12px;" th:text="${aviso}">Aviso</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding:26px 36px 32px 36px;">
+                        <p style="margin:0;font-size:12px;line-height:1.5;color:rgba(26,26,26,0.4);">Equipe PETinhos</p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
