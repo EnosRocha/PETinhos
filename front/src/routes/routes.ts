@@ -14,11 +14,15 @@ import CompletarPerfil from '@/components/CompletarPerfil.vue'
 import MinhasDoacoes from '@/components/MinhasDoacoes.vue'
 import Favoritos from '@/components/MeusFavoritos.vue'
 import Sobre from '@/components/Sobre.vue'
+import ForgotPassword from '@/components/ForgotPassword.vue'
+import ResetPassword from '@/components/ResetPassword.vue'
 
 const routes = [
   { path: '/', component: Head },
   { path: '/login', component: Login },
   { path: '/cadastrarTutor', component: SingUpTutor },
+  { path: '/esqueci-senha', component: ForgotPassword },
+  { path: '/redefinir-senha', component: ResetPassword },
   { path: '/oauth2/callback', component: OAuth2Callback },
   { path: '/completarPerfil', component: CompletarPerfil, meta: { requiresAuth: true } },
   { path: '/showPets', component: ShowPets, meta: { requiresAuth: true } },
