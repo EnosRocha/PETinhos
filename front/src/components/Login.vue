@@ -58,7 +58,7 @@ function loginGoogle() {
 
             <button type="button" class="btnGoogle" @click="loginGoogle">Entrar com Google</button>
 
-            <a class="forgot" href="#">Esqueceu a senha?</a>
+            <RouterLink class="forgot" to="/esqueci-senha">Esqueceu a senha?</RouterLink>
 
             <button type="submit" class="btnSubmit">Entrar</button>
 
