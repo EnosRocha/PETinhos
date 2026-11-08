@@ -1,7 +1,9 @@
 package com.example.allanimals.interfaces.rest;
 
 import com.example.allanimals.application.dto.FavoritoRequestDto;
+import com.example.allanimals.application.dto.MessageResponseDto;
 import com.example.allanimals.application.service.FavoritoAppService;
+import com.example.allanimals.domain.exceptions.FavoritoException;
 import com.example.allanimals.domain.model.entities.Animal;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -26,6 +28,11 @@ public class FavoritoController {
     public ResponseEntity<Void> favoritar(@RequestBody @Valid FavoritoRequestDto dto) {
         favoritoAppService.favoritar(dto.tutorid(), dto.animalId());
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @ExceptionHandler(FavoritoException.class)
+    public ResponseEntity<MessageResponseDto> tratarFavorito(FavoritoException exception) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(new MessageResponseDto(exception.getMessage()));
     }
 
     @DeleteMapping("/{tutorId}/{animalId}")

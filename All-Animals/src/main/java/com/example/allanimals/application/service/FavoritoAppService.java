@@ -36,7 +36,7 @@ public class FavoritoAppService {
     public void favoritar(UUID tutorId, Long petId) {
         boolean exists = favoritoRepository.existe(tutorId, petId);
 
-        if (exists) throw new FavoritoException("Nao ha lista de favoritos para esse tutor");
+        if (exists) throw new FavoritoException("Este pet já está nos favoritos");
 
         favoritoService.atribuirAnimalFavoritoAoTutor(tutorId, petId);
 
